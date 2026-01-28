@@ -1,0 +1,2271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Jadwal Pasaran - TopanBos88</title>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Orbitron:wght@400;600;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sidebar-width: 280px;
+            --primary-color: #5fb4ff;
+            --danger-color: #ff3b3b;
+            --success-color: #6effd7;
+            --warning-color: #ffcc00;
+            --bg-dark: #0a0a2a;
+            --bg-card: rgba(20, 40, 100, 0.6);
+            --border-color: rgba(95, 180, 255, 0.3);
+        }
+
+        /* Login Screen */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-box {
+            background: rgba(10, 20, 50, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(95, 180, 255, 0.3);
+            z-index: 10;
+            position: relative;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(95, 180, 255, 0.8);
+        }
+
+        .login-header p {
+            color: #a6c6ff;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #a6c6ff;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: rgba(15, 30, 70, 0.7);
+            color: #ecf4ff;
+            font-size: 16px;
+            font-family: 'Exo 2', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(95, 180, 255, 0.5);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, var(--primary-color), #3b7dff);
+            color: #0c1b33;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 125, 255, 0.5);
+        }
+
+        .login-error {
+            color: var(--danger-color);
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            min-height: 20px;
+        }
+
+        /* Main Layout - Hidden until login */
+        body.logged-in {
+            font-family: 'Exo 2', sans-serif;
+            margin: 0;
+            color: #ecf4ff;
+            background: var(--bg-dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        body:not(.logged-in) {
+            display: block;
+            background: var(--bg-dark);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: rgba(10, 20, 50, 0.95);
+            border-right: 1px solid var(--border-color);
+            padding: 25px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(95, 180, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), #3b7dff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #0c1b33;
+        }
+
+        .user-details h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .user-details p {
+            font-size: 12px;
+            color: #a6c6ff;
+            background: rgba(95, 180, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(95, 180, 255, 0.2);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 0 0 15px rgba(95, 180, 255, 0.8);
+            margin-bottom: 5px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: #a6c6ff;
+            opacity: 0.8;
+        }
+
+        .menu-section {
+            margin-bottom: 25px;
+        }
+
+        .menu-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #a6c6ff;
+            text-decoration: none;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: rgba(95, 180, 255, 0.15);
+            color: #ecf4ff;
+        }
+
+        .menu-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(10, 20, 50, 0.5);
+            color: #a6c6ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(95, 180, 255, 0.2);
+            color: #ecf4ff;
+            border-color: var(--primary-color);
+        }
+
+        .reset-time {
+            background: rgba(255, 59, 59, 0.1);
+            border: 1px solid rgba(255, 59, 59, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .reset-time p {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        #resetCountdown {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--danger-color);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #ff6e6e;
+            background: rgba(255, 59, 59, 0.1);
+            border: 1px solid rgba(255, 59, 59, 0.3);
+            text-align: center;
+            justify-content: center;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 59, 59, 0.2);
+            color: #ff3b3b;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 25px;
+            min-height: 100vh;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(95, 180, 255, 0.2);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 0 0 15px rgba(95, 180, 255, 0.8);
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: rgba(20, 40, 100, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px 20px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #a6c6ff;
+        }
+
+        /* Search Box */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 35px;
+        }
+
+        #searchPools {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 18px;
+            border-radius: 16px;
+            border: 2px solid var(--primary-color);
+            background: rgba(10, 20, 50, 0.7);
+            color: #ecf4ff;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        #searchPools:focus {
+            border-color: #7cd4ff;
+            box-shadow: 0 0 20px rgba(95, 180, 255, 0.8);
+            background: rgba(15, 30, 70, 0.8);
+        }
+
+        #searchPools::placeholder {
+            font-size: 18px;
+            text-align: center;
+            font-family: 'Permanent Marker', cursive;
+            font-style: italic;
+            color: #a6c6ff;
+            opacity: 0.8;
+        }
+
+        /* Grid */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* Card */
+        .card {
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(145deg, var(--bg-card), rgba(10, 20, 50, 0.8));
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 22px 18px;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(0, 10, 30, 0.5);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .card.done {
+            border-color: var(--success-color);
+            opacity: 0.9;
+        }
+
+        .card.done::before {
+            background: linear-gradient(90deg, var(--success-color), #2ecc71);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--danger-color));
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 0 20px rgba(255, 40, 40, 0.8),
+                0 15px 30px rgba(255, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #7cd4ff;
+            font-size: 20px;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(124, 212, 255, 0.5);
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-ongoing {
+            background: rgba(255, 59, 59, 0.2);
+            color: #ff6e6e;
+            border: 1px solid rgba(255, 59, 59, 0.4);
+        }
+
+        .status-done {
+            background: rgba(110, 255, 215, 0.2);
+            color: #6effd7;
+            border: 1px solid rgba(110, 255, 215, 0.4);
+        }
+
+        /* Info */
+        .info {
+            font-size: 15px;
+            margin: 8px 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(95, 180, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .info span {
+            font-weight: 600;
+        }
+
+        .close {
+            color: #ff6e6e;
+            text-shadow: 0 0 5px rgba(255, 110, 110, 0.5);
+        }
+
+        .open {
+            color: #6effd7;
+            text-shadow: 0 0 5px rgba(110, 255, 215, 0.5);
+        }
+
+        /* Countdown Timer */
+        .countdown-container {
+            background: rgba(10, 20, 50, 0.7);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid rgba(255, 59, 59, 0.3);
+        }
+
+        .countdown-title {
+            font-size: 14px;
+            color: #ff6e6e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .countdown-timer {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: var(--danger-color);
+            text-align: center;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 59, 59, 0.5);
+        }
+
+        /* Result Input */
+        .result-section {
+            background: rgba(10, 20, 50, 0.7);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-title {
+            font-size: 14px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .result-input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(15, 30, 70, 0.7);
+            color: #ecf4ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .result-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            color: var(--success-color);
+            text-align: center;
+            padding: 10px;
+            background: rgba(110, 255, 215, 0.1);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(110, 255, 215, 0.5);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(90deg, var(--success-color), #2ecc71);
+            color: #0c1b33;
+        }
+
+        .btn-edit {
+            background: linear-gradient(90deg, var(--warning-color), #ffaa00);
+            color: #0c1b33;
+        }
+
+        .btn-reset {
+            background: linear-gradient(90deg, #ff6e6e, var(--danger-color));
+            color: #0c1b33;
+        }
+
+        .btn-copy {
+            background: linear-gradient(90deg, #5fb4ff, #3b7dff);
+            color: #0c1b33;
+        }
+
+        .btn-visit {
+            background: linear-gradient(90deg, #9d4edd, #7b2cbf);
+            color: white;
+            font-weight: 700;
+            padding: 14px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
+        }
+
+        .btn-visit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(157, 78, 221, 0.7);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .done-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--success-color);
+            color: #0c1b33;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            transform: rotate(15deg);
+            box-shadow: 0 0 10px rgba(110, 255, 215, 0.5);
+            z-index: 2;
+        }
+
+        /* Result Details */
+        .result-details {
+            background: rgba(10, 20, 50, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .result-header {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 1px solid rgba(95, 180, 255, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .result-prize {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 5px 10px;
+            background: rgba(15, 30, 70, 0.5);
+            border-radius: 5px;
+        }
+
+        .result-prize-label {
+            font-weight: 600;
+            color: #a6c6ff;
+        }
+
+        .result-prize-value {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        .result-shio {
+            text-align: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(95, 180, 255, 0.3);
+            color: #ffcc00;
+            font-weight: 600;
+        }
+
+        /* User Management Section */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary-color), #3b7dff);
+            color: #0c1b33;
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(95, 180, 255, 0.4);
+        }
+
+        .table-container {
+            background: rgba(10, 20, 50, 0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgba(20, 40, 100, 0.8);
+            padding: 15px;
+            text-align: left;
+            color: var(--primary-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(95, 180, 255, 0.1);
+            color: #a6c6ff;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: rgba(95, 180, 255, 0.05);
+        }
+
+        .role-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .role-admin {
+            background: rgba(255, 59, 59, 0.2);
+            color: #ff6e6e;
+        }
+
+        .role-user {
+            background: rgba(95, 180, 255, 0.2);
+            color: #5fb4ff;
+        }
+
+        .action-cell {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit-small {
+            background: rgba(255, 204, 0, 0.2);
+            color: var(--warning-color);
+            border: 1px solid rgba(255, 204, 0, 0.4);
+        }
+
+        .btn-delete-small {
+            background: rgba(255, 59, 59, 0.2);
+            color: var(--danger-color);
+            border: 1px solid rgba(255, 59, 59, 0.4);
+        }
+
+        .btn-reset-small {
+            background: rgba(95, 180, 255, 0.2);
+            color: var(--primary-color);
+            border: 1px solid rgba(95, 180, 255, 0.4);
+        }
+
+        .btn-small:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: rgba(10, 20, 50, 0.95);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 0 30px rgba(95, 180, 255, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 22px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #a6c6ff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(95, 180, 255, 0.2);
+        }
+
+        /* Background stars */
+        #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Typhoon animations */
+        .typhoon {
+            position: fixed;
+            width: 120px;
+            height: 120px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .typhoon-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(95,180,255,0.3) 0%, rgba(95,180,255,0.1) 30%, transparent 70%);
+            animation: rotateTyphoon 15s linear infinite;
+        }
+
+        @keyframes rotateTyphoon {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 250px;
+            }
+            
+            .main-content {
+                margin-left: 250px;
+            }
+            
+            .container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .stat-box {
+                min-width: 120px;
+            }
+            
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 101;
+                background: rgba(10, 20, 50, 0.8);
+                border: 1px solid var(--border-color);
+                color: var(--primary-color);
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .stat-box {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            .modal {
+                width: 95%;
+                padding: 20px;
+            }
+            
+            .btn {
+                min-width: 100px;
+            }
+        }
+
+        /* Menu Toggle Button (Mobile) */
+        .menu-toggle {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container" id="loginScreen">
+        <!-- Background stars -->
+        <div id="stars"></div>
+        
+        <!-- Typhoon animations -->
+        <div class="typhoon" style="top: 10%; left: 5%;">
+            <div class="typhoon-inner"></div>
+        </div>
+        <div class="typhoon" style="bottom: 15%; right: 8%;">
+            <div class="typhoon-inner"></div>
+        </div>
+        
+        <div class="login-box">
+            <div class="login-header">
+                <h1>TopanBos88 Admin</h1>
+                <p>Masuk ke Dashboard Administrasi</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Masukkan username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Masukkan password" required>
+                </div>
+                
+                <div class="login-error" id="loginError"></div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px; color: #a6c6ff; font-size: 12px;">
+                <p>Demo Login: admin / admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard (Hidden until login) -->
+    <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="user-info">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <div class="user-details">
+                <h3 id="loggedInUser">Admin</h3>
+                <p id="userRole">Administrator</p>
+            </div>
+        </div>
+        
+        <div class="logo-container">
+            <div class="logo">TopanBos88</div>
+            <div class="logo-subtitle">Dashboard Admin</div>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-title">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </div>
+            <div class="menu-item active" data-section="dashboard">
+                <i class="fas fa-calendar-alt"></i> Jadwal Pools
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-title">
+                <i class="fas fa-filter"></i> Filter Status
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Semua Pools</button>
+                <button class="filter-btn" data-filter="done">Selesai (Done)</button>
+                <button class="filter-btn" data-filter="ongoing">Sedang Berlangsung</button>
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-title">
+                <i class="fas fa-cog"></i> Pengaturan
+            </div>
+            <div class="menu-item" data-section="users">
+                <i class="fas fa-users"></i> Manajemen User
+            </div>
+            <div class="menu-item" data-section="whitelist">
+                <i class="fas fa-shield-alt"></i> Whitelist IP
+            </div>
+            <div class="menu-item" data-section="settings">
+                <i class="fas fa-cogs"></i> Pengaturan Sistem
+            </div>
+        </div>
+        
+        <div class="reset-time">
+            <p>Reset Otomatis:</p>
+            <div id="resetCountdown">00:00:00</div>
+        </div>
+        
+        <div class="logout-btn" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Dashboard Section -->
+        <div class="content-section active" id="dashboardSection">
+            <div class="header">
+                <h1>Jadwal Pasaran Togel TopanBos88</h1>
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="stat-value" id="totalPools">44</div>
+                        <div class="stat-label">Total Pools</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="donePools">0</div>
+                        <div class="stat-label">Selesai</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="ongoingPools">44</div>
+                        <div class="stat-label">Berlangsung</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchPools" placeholder="🔍 Cari Nama Pools..." />
+                <div class="search-icon">⚡</div>
+            </div>
+            
+            <div class="container" id="poolsContainer">
+                <!-- Cards will be generated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- User Management Section -->
+        <div class="content-section" id="usersSection">
+            <div class="section-header">
+                <h1>Manajemen User</h1>
+                <button class="btn-primary" id="addUserBtn">
+                    <i class="fas fa-user-plus"></i> Tambah User
+                </button>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Nama Lengkap</th>
+                            <th>Role</th>
+                            <th>Terakhir Login</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                        <!-- Users will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Whitelist IP Section -->
+        <div class="content-section" id="whitelistSection">
+            <div class="section-header">
+                <h1>Whitelist IP</h1>
+                <button class="btn-primary" id="addIpBtn">
+                    <i class="fas fa-plus"></i> Tambah IP
+                </button>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>IP Address</th>
+                            <th>Keterangan</th>
+                            <th>Dibuat</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ipTable">
+                        <!-- IPs will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Settings Section -->
+        <div class="content-section" id="settingsSection">
+            <div class="section-header">
+                <h1>Pengaturan Sistem</h1>
+            </div>
+            
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="card" style="margin-bottom: 20px;">
+                    <h2>Pengaturan Waktu Reset</h2>
+                    <div class="info">
+                        <span>Reset Otomatis:</span>
+                        <select id="resetTime" class="form-control" style="width: auto; padding: 8px 15px;">
+                            <option value="00:00">00:00 WIB</option>
+                            <option value="12:00">12:00 WIB</option>
+                            <option value="06:00">06:00 WIB</option>
+                        </select>
+                    </div>
+                    <button class="btn" style="margin-top: 15px; width: 100%;">Simpan Pengaturan</button>
+                </div>
+                
+                <div class="card">
+                    <h2>Informasi Sistem</h2>
+                    <div class="info">
+                        <span>Versi:</span>
+                        <span>v2.1.0</span>
+                    </div>
+                    <div class="info">
+                        <span>Total User:</span>
+                        <span id="systemUserCount">3</span>
+                    </div>
+                    <div class="info">
+                        <span>Total IP Whitelist:</span>
+                        <span id="systemIpCount">1</span>
+                    </div>
+                    <div class="info">
+                        <span>Last Backup:</span>
+                        <span>2024-01-27 00:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    <!-- Add/Edit User Modal -->
+    <div class="modal-overlay" id="userModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="userModalTitle">Tambah User Baru</h3>
+                <button class="modal-close" id="closeUserModal">&times;</button>
+            </div>
+            
+            <form id="userForm">
+                <input type="hidden" id="editUserId">
+                
+                <div class="form-group">
+                    <label for="modalUsername">Username</label>
+                    <input type="text" id="modalUsername" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modalFullname">Nama Lengkap</label>
+                    <input type="text" id="modalFullname" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modalPassword">Password</label>
+                    <input type="password" id="modalPassword" class="form-control" placeholder="Kosongkan jika tidak ingin mengubah">
+                </div>
+                
+                <div class="form-group">
+                    <label for="modalRole">Role</label>
+                    <select id="modalRole" class="form-control" required>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modalStatus">Status</label>
+                    <select id="modalStatus" class="form-control" required>
+                        <option value="active">Aktif</option>
+                        <option value="inactive">Nonaktif</option>
+                    </select>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-reset" id="cancelUserBtn">Batal</button>
+                    <button type="submit" class="btn btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Add IP Modal -->
+    <div class="modal-overlay" id="ipModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Tambah IP Whitelist</h3>
+                <button class="modal-close" id="closeIpModal">&times;</button>
+            </div>
+            
+            <form id="ipForm">
+                <div class="form-group">
+                    <label for="modalIp">IP Address</label>
+                    <input type="text" id="modalIp" class="form-control" placeholder="Contoh: 192.168.1.1" required pattern="^(\d{1,3}\.){3}\d{1,3}$">
+                </div>
+                
+                <div class="form-group">
+                    <label for="modalIpDesc">Keterangan</label>
+                    <input type="text" id="modalIpDesc" class="form-control" placeholder="Contoh: Server Utama" required>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-reset" id="cancelIpBtn">Batal</button>
+                    <button type="submit" class="btn btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Konfirmasi</h3>
+                <button class="modal-close" id="closeConfirmModal">&times;</button>
+            </div>
+            
+            <div style="padding: 20px 0;">
+                <p id="confirmMessage">Apakah Anda yakin ingin melanjutkan?</p>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-reset" id="cancelConfirmBtn">Batal</button>
+                <button type="button" class="btn btn-submit" id="confirmBtn">Ya, Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===================== DATA STORAGE =====================
+        let poolsData = [
+            { id: 1, name: "HOKIDRAW 5D", days: "Senin - Minggu", close: "Result 24x", open: "1 Jam Sekali", closeTime: "00:00", openTime: "00:00", result: "", done: false, link: "https://hokidraw.com/live-draw.html" },
+            { id: 2, name: "TOTO MACAU PAGI", days: "Senin - Minggu", close: "00:00 WIB", open: "00:15 WIB", closeTime: "00:00", openTime: "00:15", result: "", done: false, link: "https://poolstotomacao.com/" },
+            { id: 3, name: "KENTUCKY MIDDAY", days: "Senin - Minggu", close: "01:05 WIB", open: "01:20 WIB", closeTime: "01:05", openTime: "01:20", result: "", done: false, link: "https://www.kylottery.com/apps/" },
+            { id: 4, name: "FLORIDA MIDDAY", days: "Senin - Minggu", close: "01:20 WIB", open: "01:30 WIB", closeTime: "01:20", openTime: "01:30", result: "", done: false, link: "https://floridalottery.com/games/draw-games/pick-4" },
+            { id: 5, name: "HUAHIN 0100", days: "Senin - Minggu", close: "00:45 WIB", open: "01:00 WIB", closeTime: "00:45", openTime: "01:00", result: "", done: false, link: "https://huahinlottery.com/" },
+            { id: 6, name: "BANGKOK 0130", days: "Senin - Minggu", close: "01:15 WIB", open: "01:30 WIB", closeTime: "01:15", openTime: "01:30", result: "", done: false, link: "https://bangkokpoolstoday.com" },
+            { id: 7, name: "NEWYORK MIDDAY", days: "Senin - Minggu", close: "02:15 WIB", open: "02:25 WIB", closeTime: "02:15", openTime: "02:25", result: "", done: false, link: "https://nylottery.ny.gov" },
+            { id: 8, name: "CAROLINA DAY", days: "Senin - Minggu", close: "02:45 WIB", open: "03:00 WIB", closeTime: "02:45", openTime: "03:00", result: "", done: false, link: "https://nclottery.com/Pick4" },
+            { id: 9, name: "BRUNEI 02", days: "Senin - Minggu", close: "02:30 WIB", open: "02:45 WIB", closeTime: "02:30", openTime: "02:45", result: "", done: false, link: "https://bruneipools.com" },
+            { id: 10, name: "OREGON03", days: "Senin - Minggu", close: "03:50 WIB", open: "04:00 WIB", closeTime: "03:50", openTime: "04:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
+            { id: 11, name: "OREGON06", days: "Senin - Minggu", close: "06:50 WIB", open: "07:00 WIB", closeTime: "06:50", openTime: "07:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
+            { id: 12, name: "CALIFORNIA", days: "Senin - Minggu", close: "09:25 WIB", open: "09:30 WIB", closeTime: "09:25", openTime: "09:30", result: "", done: false, link: "https://www.calottery.com/play/draw-games/daily-4" },
+            { id: 13, name: "FLORIDA EVENING", days: "Senin - Minggu", close: "09:35 WIB", open: "09:45 WIB", closeTime: "09:35", openTime: "09:45", result: "", done: false, link: "https://floridalottery.com/games/draw-games/pick-4" },
+            { id: 14, name: "OREGON09", days: "Senin - Minggu", close: "09:50 WIB", open: "10:00 WIB", closeTime: "09:50", openTime: "10:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
+            { id: 15, name: "BANGKOK 0930", days: "Senin - Minggu", close: "09:15 WIB", open: "09:30 WIB", closeTime: "09:15", openTime: "09:30", result: "", done: false, link: "https://bangkokpoolstoday.com" },
+            { id: 16, name: "NEW YORK EVENING", days: "Senin - Minggu", close: "10:25 WIB", open: "10:35 WIB", closeTime: "10:25", openTime: "10:35", result: "", done: false, link: "https://nylottery.ny.gov" },
+            { id: 17, name: "KENTUCKY EVENING", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://www.kylottery.com/apps/" },
+            { id: 18, name: "CAROLINA EVENING", days: "Senin - Minggu", close: "11:17 WIB", open: "11:22 WIB", closeTime: "11:17", openTime: "11:22", result: "", done: false, link: "https://nclottery.com/Pick4" },
+            { id: 19, name: "TOTO CAMBODIA LIVE", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://totocambodialive.com" },
+            { id: 20, name: "CHELSEA 11", days: "Senin - Minggu", close: "11:00 WIB", open: "11:15 WIB", closeTime: "11:00", openTime: "11:15", result: "", done: false, link: "https://chelseapools.co.uk" },
+            { id: 21, name: "OREGON12", days: "Senin - Minggu", close: "12:50 WIB", open: "13:00 WIB", closeTime: "12:50", openTime: "13:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
+            { id: 22, name: "POIPET12", days: "Senin - Minggu", close: "12:15 WIB", open: "12:30 WIB", closeTime: "12:15", openTime: "12:30", result: "", done: false, link: "https://poipetlottery.com" },
+            { id: 23, name: "BULLSEYE", days: "Senin - Minggu", close: "12:00 WIB", open: "12:15 WIB", closeTime: "12:00", openTime: "12:15", result: "", done: false, link: "https://mylotto.co.nz" },
+            { id: 24, name: "TOTOMACAU SIANG", days: "Senin - Minggu", close: "13:00 WIB", open: "13:15 WIB", closeTime: "13:00", openTime: "13:15", result: "", done: false, link: "https://poolstotomacao.com" },
+            { id: 25, name: "SYDNEY", days: "Senin - Minggu", close: "13:49 WIB", open: "14:05 WIB", closeTime: "13:49", openTime: "14:05", result: "", done: false, link: "https://sydneylottobaru.site" },
+            { id: 26, name: "BRUNEI14", days: "Senin - Minggu", close: "14:30 WIB", open: "14:45 WIB", closeTime: "14:30", openTime: "14:45", result: "", done: false, link: "https://bruneipools.com" },
+            { id: 27, name: "CHELSEA 15", days: "Senin - Minggu", close: "15:00 WIB", open: "15:15 WIB", closeTime: "15:00", openTime: "15:15", result: "", done: false, link: "https://chelseapools.co.uk" },
+            { id: 28, name: "TOTOMALI1530", days: "Senin - Minggu", close: "15:15 WIB", open: "15:30 WIB", closeTime: "15:15", openTime: "15:30", result: "", done: false, link: "https://totomali.com" },
+            { id: 29, name: "POIPET15", days: "Senin - Minggu", close: "15:15 WIB", open: "15:30 WIB", closeTime: "15:15", openTime: "15:30", result: "", done: false, link: "https://poipetlottery.com" },
+            { id: 30, name: "TOTOMACAU SORE", days: "Senin - Minggu", close: "16:00 WIB", open: "16:15 WIB", closeTime: "16:00", openTime: "16:15", result: "", done: false, link: "https://poolstotomacao.com" },
+            { id: 31, name: "HUAHIN 1630", days: "Senin - Minggu", close: "16:15 WIB", open: "16:30 WIB", closeTime: "16:15", openTime: "16:30", result: "", done: false, link: "https://huahinlottery.com" },
+            { id: 32, name: "KING KONG4D I", days: "Senin - Minggu", close: "17:00 WIB", open: "17:15 WIB", closeTime: "17:00", openTime: "17:15", result: "", done: false, link: "https://kingkongpools.com" },
+            { id: 33, name: "SINGAPORE", days: "SELASA & JUMAT LIBUR", close: "17:30 WIB", open: "17:45 WIB", closeTime: "17:30", openTime: "17:45", result: "", done: false, link: "https://www.singaporepools.com.sg/landing/en/Pages/index.html" },
+            { id: 34, name: "MAGNUM4D", days: "RABU, SABTU, & MINGGU", close: "18:10 WIB", open: "18:40 WIB", closeTime: "18:10", openTime: "18:40", result: "", done: false, link: "https://www.magnum4d.my/en/" },
+            { id: 35, name: "TOTOMACAU MALAM I", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://poolstotomacao.com" },
+            { id: 36, name: "CHELSEA 19", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://chelseapools.co.uk" },
+            { id: 37, name: "POIPET19", days: "Senin - Minggu", close: "19:30 WIB", open: "19:45 WIB", closeTime: "19:30", openTime: "19:45", result: "", done: false, link: "https://poipetlottery.com" },
+            { id: 38, name: "PCSO", days: "MINGGU LIBUR", close: "19:50 WIB", open: "20:10 WIB", closeTime: "19:50", openTime: "20:10", result: "", done: false, link: "https://www.pcso.gov.ph" },
+            { id: 39, name: "TOTOMALI2030", days: "Senin - Minggu", close: "20:15 WIB", open: "20:30 WIB", closeTime: "20:15", openTime: "20:30", result: "", done: false, link: "https://totomali.com" },
+            { id: 40, name: "HUAHIN2100", days: "Senin - Minggu", close: "20:30 WIB", open: "20:45 WIB", closeTime: "20:30", openTime: "20:45", result: "", done: false, link: "https://huahinlottery.com" },
+            { id: 41, name: "CHELSEA21", days: "Senin - Minggu", close: "21:00 WIB", open: "21:15 WIB", closeTime: "21:00", openTime: "21:15", result: "", done: false, link: "https://chelseapools.co.uk" },
+            { id: 42, name: "NEVADA", days: "Senin - Minggu", close: "21:15 WIB", open: "21:30 WIB", closeTime: "21:15", openTime: "21:30", result: "", done: false, link: "https://www.nevadalottery.us/" },
+            { id: 43, name: "BRUNEI21", days: "Senin - Minggu", close: "21:30 WIB", open: "21:45 WIB", closeTime: "21:30", openTime: "21:45", result: "", done: false, link: "https://bruneipools.com/" },
+            { id: 44, name: "TOTOMACAU MALAM-II", days: "Senin - Minggu", close: "22:00 WIB", open: "22:15 WIB", closeTime: "22:00", openTime: "22:15", result: "", done: false, link: "https://poolstotomacao.com" },
+            { id: 45, name: "POIPET22", days: "Senin - Minggu", close: "22:30 WIB", open: "22:45 WIB", closeTime: "22:30", openTime: "22:45", result: "", done: false, link: "https://poipetlottery.com" },
+            { id: 46, name: "HONGKONG", days: "Senin - Minggu", close: "22:59 WIB", open: "23:15 WIB", closeTime: "22:59", openTime: "23:15", result: "", done: false, link: "https://lottohongkong.fun" },
+            { id: 47, name: "TOTOMACAU MALAM-III", days: "Senin - Minggu", close: "23:00 WIB", open: "23:15 WIB", closeTime: "23:00", openTime: "23:15", result: "", done: false, link: "https://poolstotomacao.com" },
+            { id: 48, name: "TOTOMALI2330", days: "Senin - Minggu", close: "23:15 WIB", open: "23:30 WIB", closeTime: "23:15", openTime: "23:30", result: "", done: false, link: "https://totomali.com" },
+            { id: 49, name: "KING KONG4D II", days: "Senin - Minggu", close: "23:30 WIB", open: "23:45 WIB", closeTime: "23:30", openTime: "23:45", result: "", done: false, link: "https://kingkongpools.com" }
+        ];
+
+        // Default users (admin and regular users)
+        let users = [
+            { id: 1, username: "admin", fullname: "Administrator", password: "admin123", role: "admin", status: "active", lastLogin: "2024-01-27 10:30" },
+            { id: 2, username: "operator1", fullname: "Operator Utama", password: "op123", role: "user", status: "active", lastLogin: "2024-01-26 15:45" },
+            { id: 3, username: "monitor", fullname: "Monitor System", password: "monitor123", role: "user", status: "active", lastLogin: "2024-01-25 09:15" }
+        ];
+
+        // Whitelist IP addresses
+        let whitelistIps = [
+            { id: 1, ip: "103.20.83.166", description: "IP Utama Server", createdAt: "2024-01-27", status: "active" }
+        ];
+
+        // ===================== AUTHENTICATION =====================
+        function login(username, password) {
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (!user) {
+                return { success: false, message: "Username atau password salah" };
+            }
+            
+            if (user.status !== "active") {
+                return { success: false, message: "Akun tidak aktif" };
+            }
+            
+            // Update last login
+            const now = new Date();
+            user.lastLogin = now.toISOString().slice(0, 19).replace('T', ' ');
+            
+            return { 
+                success: true, 
+                user: {
+                    username: user.username,
+                    fullname: user.fullname,
+                    role: user.role
+                }
+            };
+        }
+
+        // ===================== UI FUNCTIONS =====================
+        function showLoginScreen() {
+            document.body.classList.remove('logged-in');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'none';
+        }
+
+        function showDashboard(user) {
+            document.body.classList.add('logged-in');
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            
+            // Update user info
+            document.getElementById('loggedInUser').textContent = user.fullname;
+            document.getElementById('userRole').textContent = user.role === 'admin' ? 'Administrator' : 'User';
+            document.getElementById('userAvatar').textContent = user.fullname.charAt(0).toUpperCase();
+            
+            // Load data
+            loadPools();
+            loadUsers();
+            loadWhitelistIps();
+            updateStats();
+            
+            // Start timers
+            startCountdowns();
+            updateResetCountdown();
+        }
+
+        function logout() {
+            if (confirm("Apakah Anda yakin ingin logout?")) {
+                showLoginScreen();
+                // Clear any sensitive data
+                document.getElementById('loginForm').reset();
+                document.getElementById('loginError').textContent = '';
+            }
+        }
+
+        // ===================== POOLS MANAGEMENT =====================
+        function loadPools() {
+            const container = document.getElementById('poolsContainer');
+            container.innerHTML = '';
+            
+            const filter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+            const searchTerm = document.getElementById('searchPools').value.toLowerCase();
+            
+            poolsData.forEach(pool => {
+                // Apply filters
+                if (filter === 'done' && !pool.done) return;
+                if (filter === 'ongoing' && pool.done) return;
+                
+                // Apply search
+                if (searchTerm && !pool.name.toLowerCase().includes(searchTerm)) return;
+                
+                const card = createPoolCard(pool);
+                container.appendChild(card);
+            });
+            
+            updateStats();
+        }
+
+        function createPoolCard(pool) {
+            const card = document.createElement('div');
+            card.className = `card ${pool.done ? 'done' : ''}`;
+            card.dataset.id = pool.id;
+            
+            // Calculate countdown
+            const countdown = calculateCountdown(pool.closeTime);
+            
+            // Parse result for display
+            const resultDetails = parseResultForDisplay(pool.result, pool.name);
+            
+            card.innerHTML = `
+                ${pool.done ? '<div class="done-badge">DONE</div>' : ''}
+                <div class="card-header">
+                    <h2>${pool.name}</h2>
+                    <div class="status-badge ${pool.done ? 'status-done' : 'status-ongoing'}">
+                        ${pool.done ? 'Selesai' : 'Berlangsung'}
+                    </div>
+                </div>
+                
+                <div class="info">
+                    Hari: <span>${pool.days}</span>
+                </div>
+                <div class="info">
+                    Tutup: <span class="close">${pool.close}</span>
+                </div>
+                <div class="info">
+                    Buka: <span class="open">${pool.open}</span>
+                </div>
+                
+                <div class="countdown-container">
+                    <div class="countdown-title">
+                        <i class="fas fa-clock"></i> Countdown:
+                    </div>
+                    <div class="countdown-timer" id="countdown-${pool.id}">
+                        ${countdown}
+                    </div>
+                </div>
+                
+                <div class="result-section">
+                    <div class="result-title">
+                        <i class="fas fa-trophy"></i> Hasil Result:
+                    </div>
+                    
+                    ${pool.result ? `
+                        ${resultDetails}
+                        <div class="action-buttons">
+                            <button class="btn btn-copy" onclick="copyResult(${pool.id})">
+                                <i class="fas fa-copy"></i> Copy Result
+                            </button>
+                            <button class="btn btn-edit" onclick="editResult(${pool.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-reset" onclick="resetResult(${pool.id})">
+                                <i class="fas fa-redo"></i> Reset
+                            </button>
+                        </div>
+                    ` : `
+                        <div class="result-input-container">
+                            <input type="text" class="result-input" id="result-${pool.id}" 
+                                   placeholder="Masukkan hasil (contoh: 1234)" maxlength="10">
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-submit" onclick="submitResult(${pool.id})">
+                                <i class="fas fa-check"></i> Submit Result
+                            </button>
+                        </div>
+                    `}
+                </div>
+                
+                <a href="${pool.link}" target="_blank" rel="noopener" class="btn btn-visit">
+                    <i class="fas fa-external-link-alt"></i> Kunjungi Website
+                </a>
+            `;
+            
+            return card;
+        }
+
+        function parseResultForDisplay(result, poolName) {
+            if (!result) return '<div class="result-display">-</div>';
+            
+            // Check if result contains prize information
+            if (result.includes('Prize 1:') || result.includes('SHIO:')) {
+                // Parse multi-prize format
+                const lines = result.split('\n');
+                let html = '<div class="result-details">';
+                let shio = '';
+                
+                html += `<div class="result-header">${poolName}</div>`;
+                
+                lines.forEach(line => {
+                    if (line.includes('SHIO:')) {
+                        shio = line.split('SHIO:')[1].trim();
+                    } else if (line.includes('Prize 1:')) {
+                        const prize1 = line.split('Prize 1:')[1].trim();
+                        html += `<div class="result-prize"><span class="result-prize-label">Prize 1:</span><span class="result-prize-value">${prize1 || '-'}</span></div>`;
+                    } else if (line.includes('Prize 2:')) {
+                        const prize2 = line.split('Prize 2:')[1].trim();
+                        html += `<div class="result-prize"><span class="result-prize-label">Prize 2:</span><span class="result-prize-value">${prize2 || '-'}</span></div>`;
+                    } else if (line.includes('Prize 3:')) {
+                        const prize3 = line.split('Prize 3:')[1].trim();
+                        html += `<div class="result-prize"><span class="result-prize-label">Prize 3:</span><span class="result-prize-value">${prize3 || '-'}</span></div>`;
+                    }
+                });
+                
+                if (shio) {
+                    html += `<div class="result-shio">SHIO: ${shio}</div>`;
+                }
+                
+                html += '</div>';
+                return html;
+            } else {
+                // Simple result display
+                return `<div class="result-display">${result}</div>`;
+            }
+        }
+
+        function calculateCountdown(closeTime) {
+            const now = new Date();
+            const [hours, minutes] = closeTime.split(':').map(Number);
+            const closeDate = new Date();
+            closeDate.setHours(hours, minutes, 0, 0);
+            
+            // If close time has passed for today, set for tomorrow
+            if (closeDate < now) {
+                closeDate.setDate(closeDate.getDate() + 1);
+            }
+            
+            const diff = closeDate - now;
+            const hoursLeft = Math.floor(diff / (1000 * 60 * 60));
+            const minutesLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secondsLeft = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            return `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
+        }
+
+        function submitResult(poolId) {
+            const input = document.getElementById(`result-${poolId}`);
+            const result = input ? input.value.trim() : '';
+            
+            if (!result) {
+                alert('Silakan masukkan hasil result!');
+                if (input) input.focus();
+                return;
+            }
+            
+            const pool = poolsData.find(p => p.id === poolId);
+            if (pool) {
+                pool.result = result;
+                pool.done = true;
+                saveToLocalStorage();
+                loadPools();
+                updateStats();
+            }
+        }
+
+        function editResult(poolId) {
+            const pool = poolsData.find(p => p.id === poolId);
+            if (pool) {
+                const newResult = prompt('Edit hasil result:', pool.result);
+                if (newResult !== null) {
+                    pool.result = newResult.trim();
+                    saveToLocalStorage();
+                    loadPools();
+                }
+            }
+        }
+
+        function resetResult(poolId) {
+            if (confirm('Reset result untuk pool ini?')) {
+                const pool = poolsData.find(p => p.id === poolId);
+                if (pool) {
+                    pool.result = '';
+                    pool.done = false;
+                    saveToLocalStorage();
+                    loadPools();
+                    updateStats();
+                }
+            }
+        }
+
+        function copyResult(poolId) {
+            const pool = poolsData.find(p => p.id === poolId);
+            if (!pool || !pool.result) return;
+            
+            // Format text for copying
+            const now = new Date();
+            const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const day = dayNames[now.getDay()];
+            const date = now.getDate();
+            const month = monthNames[now.getMonth()];
+            const year = now.getFullYear();
+            
+            let textToCopy = `Hasil Pengeluaran : ${pool.name}\n`;
+            textToCopy += `${day}, ${date} ${month} ${year}\n`;
+            
+            // Check if result has multiple prizes
+            if (pool.result.includes('Prize 1:') || pool.result.includes('SHIO:')) {
+                const lines = pool.result.split('\n');
+                lines.forEach(line => {
+                    textToCopy += line + '\n';
+                });
+            } else {
+                textToCopy += `Result : ${pool.result}\n`;
+            }
+            
+            textToCopy += `Selamat Kepada Pemenang, Salam JP`;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    // Show success message
+                    const originalText = document.querySelector(`[onclick="copyResult(${poolId})"] i`).nextSibling.textContent;
+                    const button = document.querySelector(`[onclick="copyResult(${poolId})"]`);
+                    const icon = button.querySelector('i');
+                    
+                    icon.className = 'fas fa-check';
+                    button.querySelector('i').nextSibling.textContent = ' Copied!';
+                    
+                    setTimeout(() => {
+                        icon.className = 'fas fa-copy';
+                        button.querySelector('i').nextSibling.textContent = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                    alert('Gagal menyalin ke clipboard');
+                });
+        }
+
+        function updateStats() {
+            const total = poolsData.length;
+            const done = poolsData.filter(p => p.done).length;
+            const ongoing = total - done;
+            
+            document.getElementById('totalPools').textContent = total;
+            document.getElementById('donePools').textContent = done;
+            document.getElementById('ongoingPools').textContent = ongoing;
+        }
+
+        function startCountdowns() {
+            setInterval(() => {
+                poolsData.forEach(pool => {
+                    const countdownElement = document.getElementById(`countdown-${pool.id}`);
+                    if (countdownElement) {
+                        countdownElement.textContent = calculateCountdown(pool.closeTime);
+                    }
+                });
+            }, 1000);
+        }
+
+        // ===================== USER MANAGEMENT =====================
+        function loadUsers() {
+            const tbody = document.getElementById('usersTable');
+            tbody.innerHTML = '';
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.fullname}</td>
+                    <td>
+                        <span class="role-badge ${user.role === 'admin' ? 'role-admin' : 'role-user'}">
+                            ${user.role === 'admin' ? 'Admin' : 'User'}
+                        </span>
+                    </td>
+                    <td>${user.lastLogin}</td>
+                    <td>
+                        <span style="color: ${user.status === 'active' ? '#6effd7' : '#ff6e6e'}">
+                            ${user.status === 'active' ? 'Aktif' : 'Nonaktif'}
+                        </span>
+                    </td>
+                    <td class="action-cell">
+                        <button class="btn-small btn-edit-small" onclick="editUser(${user.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn-small btn-reset-small" onclick="resetPassword(${user.id})">
+                            <i class="fas fa-key"></i> Reset Pass
+                        </button>
+                        ${user.username !== 'admin' ? `
+                            <button class="btn-small btn-delete-small" onclick="deleteUser(${user.id})">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        ` : ''}
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            // Update system info
+            document.getElementById('systemUserCount').textContent = users.length;
+        }
+
+        function openAddUserModal() {
+            document.getElementById('userModalTitle').textContent = 'Tambah User Baru';
+            document.getElementById('userForm').reset();
+            document.getElementById('editUserId').value = '';
+            document.getElementById('modalRole').value = 'user';
+            document.getElementById('modalStatus').value = 'active';
+            document.getElementById('userModal').classList.add('active');
+        }
+
+        function editUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+            
+            document.getElementById('userModalTitle').textContent = 'Edit User';
+            document.getElementById('editUserId').value = user.id;
+            document.getElementById('modalUsername').value = user.username;
+            document.getElementById('modalFullname').value = user.fullname;
+            document.getElementById('modalRole').value = user.role;
+            document.getElementById('modalStatus').value = user.status;
+            document.getElementById('modalPassword').value = '';
+            
+            document.getElementById('userModal').classList.add('active');
+        }
+
+        function saveUser(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('editUserId').value;
+            const username = document.getElementById('modalUsername').value.trim();
+            const fullname = document.getElementById('modalFullname').value.trim();
+            const password = document.getElementById('modalPassword').value;
+            const role = document.getElementById('modalRole').value;
+            const status = document.getElementById('modalStatus').value;
+            
+            // Validate
+            if (!username || !fullname) {
+                alert('Username dan nama lengkap harus diisi!');
+                return;
+            }
+            
+            if (id) {
+                // Edit existing user
+                const userIndex = users.findIndex(u => u.id == id);
+                if (userIndex !== -1) {
+                    users[userIndex].username = username;
+                    users[userIndex].fullname = fullname;
+                    users[userIndex].role = role;
+                    users[userIndex].status = status;
+                    
+                    if (password) {
+                        users[userIndex].password = password;
+                    }
+                }
+            } else {
+                // Add new user
+                // Check if username already exists
+                if (users.some(u => u.username === username)) {
+                    alert('Username sudah terdaftar!');
+                    return;
+                }
+                
+                const newId = Math.max(...users.map(u => u.id)) + 1;
+                const newUser = {
+                    id: newId,
+                    username,
+                    fullname,
+                    password: password || 'default123',
+                    role,
+                    status,
+                    lastLogin: '-'
+                };
+                
+                users.push(newUser);
+            }
+            
+            saveToLocalStorage();
+            loadUsers();
+            closeModal('userModal');
+        }
+
+        function resetPassword(userId) {
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+            
+            const newPassword = prompt(`Reset password untuk ${user.username} (minimal 6 karakter):`, '');
+            if (newPassword && newPassword.length >= 6) {
+                user.password = newPassword;
+                saveToLocalStorage();
+                alert(`Password untuk ${user.username} berhasil direset!`);
+            } else if (newPassword) {
+                alert('Password minimal 6 karakter!');
+            }
+        }
+
+        function deleteUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (!user || user.username === 'admin') return;
+            
+            showConfirmModal(
+                'Hapus User',
+                `Apakah Anda yakin ingin menghapus user "${user.username}"?`,
+                () => {
+                    users = users.filter(u => u.id !== userId);
+                    saveToLocalStorage();
+                    loadUsers();
+                    closeModal('confirmModal');
+                }
+            );
+        }
+
+        // ===================== WHITELIST IP MANAGEMENT =====================
+        function loadWhitelistIps() {
+            const tbody = document.getElementById('ipTable');
+            tbody.innerHTML = '';
+            
+            whitelistIps.forEach(ip => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${ip.ip}</td>
+                    <td>${ip.description}</td>
+                    <td>${ip.createdAt}</td>
+                    <td>
+                        <span style="color: ${ip.status === 'active' ? '#6effd7' : '#ff6e6e'}">
+                            ${ip.status === 'active' ? 'Aktif' : 'Nonaktif'}
+                        </span>
+                    </td>
+                    <td class="action-cell">
+                        <button class="btn-small btn-delete-small" onclick="deleteIp(${ip.id})">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            document.getElementById('systemIpCount').textContent = whitelistIps.length;
+        }
+
+        function openAddIpModal() {
+            document.getElementById('ipForm').reset();
+            document.getElementById('ipModal').classList.add('active');
+        }
+
+        function saveIp(e) {
+            e.preventDefault();
+            
+            const ip = document.getElementById('modalIp').value.trim();
+            const description = document.getElementById('modalIpDesc').value.trim();
+            
+            // Validate IP format
+            const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+            if (!ipRegex.test(ip)) {
+                alert('Format IP tidak valid!');
+                return;
+            }
+            
+            // Check if IP already exists
+            if (whitelistIps.some(i => i.ip === ip)) {
+                alert('IP sudah terdaftar!');
+                return;
+            }
+            
+            const newId = whitelistIps.length > 0 ? Math.max(...whitelistIps.map(i => i.id)) + 1 : 1;
+            const newIp = {
+                id: newId,
+                ip,
+                description,
+                createdAt: new Date().toISOString().slice(0, 10),
+                status: 'active'
+            };
+            
+            whitelistIps.push(newIp);
+            saveToLocalStorage();
+            loadWhitelistIps();
+            closeModal('ipModal');
+        }
+
+        function deleteIp(ipId) {
+            const ip = whitelistIps.find(i => i.id === ipId);
+            if (!ip) return;
+            
+            showConfirmModal(
+                'Hapus IP',
+                `Apakah Anda yakin ingin menghapus IP "${ip.ip}" dari whitelist?`,
+                () => {
+                    whitelistIps = whitelistIps.filter(i => i.id !== ipId);
+                    saveToLocalStorage();
+                    loadWhitelistIps();
+                    closeModal('confirmModal');
+                }
+            );
+        }
+
+        // ===================== MODAL FUNCTIONS =====================
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function showConfirmModal(title, message, callback) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMessage').textContent = message;
+            document.getElementById('confirmModal').classList.add('active');
+            
+            document.getElementById('confirmBtn').onclick = () => {
+                callback();
+            };
+        }
+
+        // ===================== RESET FUNCTIONS =====================
+        function updateResetCountdown() {
+            function update() {
+                const now = new Date();
+                const resetTime = new Date();
+                resetTime.setHours(0, 0, 0, 0);
+                
+                // If reset time has passed for today, set for tomorrow
+                if (resetTime < now) {
+                    resetTime.setDate(resetTime.getDate() + 1);
+                }
+                
+                const diff = resetTime - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('resetCountdown').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    
+                // Check if it's reset time (00:00:00)
+                if (hours === 0 && minutes === 0 && seconds <= 1) {
+                    resetAllResults();
+                }
+            }
+            
+            update();
+            setInterval(update, 1000);
+        }
+
+        function resetAllResults() {
+            poolsData.forEach(pool => {
+                pool.result = '';
+                pool.done = false;
+            });
+            
+            saveToLocalStorage();
+            loadPools();
+            updateStats();
+            
+            // Show notification
+            alert('Semua hasil result telah direset otomatis untuk hari baru!');
+        }
+
+        // ===================== LOCAL STORAGE =====================
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem('topanbos88_pools', JSON.stringify(poolsData));
+                localStorage.setItem('topanbos88_users', JSON.stringify(users));
+                localStorage.setItem('topanbos88_ips', JSON.stringify(whitelistIps));
+            } catch (e) {
+                console.error('Error saving to localStorage:', e);
+            }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const savedPools = localStorage.getItem('topanbos88_pools');
+                const savedUsers = localStorage.getItem('topanbos88_users');
+                const savedIps = localStorage.getItem('topanbos88_ips');
+                
+                if (savedPools) {
+                    const parsed = JSON.parse(savedPools);
+                    // Update poolsData with saved results
+                    poolsData.forEach(pool => {
+                        const saved = parsed.find(p => p.id === pool.id);
+                        if (saved) {
+                            pool.result = saved.result || '';
+                            pool.done = saved.done || false;
+                        }
+                    });
+                }
+                
+                if (savedUsers) {
+                    users = JSON.parse(savedUsers);
+                }
+                
+                if (savedIps) {
+                    whitelistIps = JSON.parse(savedIps);
+                }
+            } catch (e) {
+                console.error('Error loading from localStorage:', e);
+            }
+        }
+
+        // ===================== STARS BACKGROUND =====================
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const size = Math.random() * 3 + 1;
+                const opacity = Math.random() * 0.7 + 0.3;
+                const delay = Math.random() * 5;
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.opacity = opacity;
+                star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite ${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // ===================== EVENT LISTENERS =====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved data
+            loadFromLocalStorage();
+            
+            // Create stars
+            createStars();
+            
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const loginError = document.getElementById('loginError');
+                
+                const result = login(username, password);
+                
+                if (result.success) {
+                    loginError.textContent = '';
+                    showDashboard(result.user);
+                } else {
+                    loginError.textContent = result.message;
+                }
+            });
+            
+            // Sidebar menu
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const section = this.dataset.section;
+                    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                    document.getElementById(`${section}Section`).classList.add('active');
+                    
+                    // Close sidebar on mobile
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('sidebar').classList.remove('active');
+                    }
+                });
+            });
+            
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    loadPools();
+                });
+            });
+            
+            // Search
+            document.getElementById('searchPools').addEventListener('input', loadPools);
+            
+            // User management
+            document.getElementById('addUserBtn').addEventListener('click', openAddUserModal);
+            document.getElementById('userForm').addEventListener('submit', saveUser);
+            document.getElementById('closeUserModal').addEventListener('click', () => closeModal('userModal'));
+            document.getElementById('cancelUserBtn').addEventListener('click', () => closeModal('userModal'));
+            
+            // IP management
+            document.getElementById('addIpBtn').addEventListener('click', openAddIpModal);
+            document.getElementById('ipForm').addEventListener('submit', saveIp);
+            document.getElementById('closeIpModal').addEventListener('click', () => closeModal('ipModal'));
+            document.getElementById('cancelIpBtn').addEventListener('click', () => closeModal('ipModal'));
+            
+            // Confirmation modal
+            document.getElementById('closeConfirmModal').addEventListener('click', () => closeModal('confirmModal'));
+            document.getElementById('cancelConfirmBtn').addEventListener('click', () => closeModal('confirmModal'));
+            
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            
+            // Menu toggle for mobile
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('active');
+            });
+            
+            // Close modal on overlay click
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Keyboard shortcuts - REMOVED Ctrl+F shortcut
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal-overlay').forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                    
+                    // Close sidebar on mobile
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('sidebar').classList.remove('active');
+                    }
+                }
+            });
+            
+            // Show login screen initially
+            showLoginScreen();
+        });
+        
+        // Make functions available globally
+        window.submitResult = submitResult;
+        window.editResult = editResult;
+        window.resetResult = resetResult;
+        window.copyResult = copyResult;
+        window.editUser = editUser;
+        window.resetPassword = resetPassword;
+        window.deleteUser = deleteUser;
+        window.deleteIp = deleteIp;
+    </script>
+</body>
+</html>
