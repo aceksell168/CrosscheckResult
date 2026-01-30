@@ -729,6 +729,39 @@
             font-weight: 600;
         }
 
+        /* Prize Input Modal */
+        .prize-input-modal {
+            background: rgba(10, 20, 50, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .prize-input-group {
+            margin-bottom: 10px;
+        }
+
+        .prize-input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a6c6ff;
+            font-size: 14px;
+        }
+
+        .prize-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(15, 30, 70, 0.7);
+            color: #ecf4ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
         /* User Management Section */
         .section-header {
             display: flex;
@@ -1067,7 +1100,7 @@
         <div class="login-box">
             <div class="login-header">
                 <h1>TopanBos88 Admin</h1>
-                <p>Masuk ke Dashboard Administrasi</p>
+                <p>Akses Dashboard</p>
             </div>
             
             <form id="loginForm">
@@ -1385,65 +1418,133 @@
             </div>
         </div>
     </div>
+    
+    <!-- Prize Input Modal -->
+    <div class="modal-overlay" id="prizeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="prizeModalTitle">Input Hasil 3 Prize</h3>
+                <button class="modal-close" id="closePrizeModal">&times;</button>
+            </div>
+            
+            <form id="prizeForm">
+                <input type="hidden" id="prizePoolId">
+                
+                <div class="form-group">
+                    <label for="prize1">Prize 1</label>
+                    <input type="text" id="prize1" class="form-control" placeholder="Masukkan Prize 1" maxlength="10" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prize2">Prize 2</label>
+                    <input type="text" id="prize2" class="form-control" placeholder="Masukkan Prize 2" maxlength="10">
+                </div>
+                
+                <div class="form-group">
+                    <label for="prize3">Prize 3</label>
+                    <input type="text" id="prize3" class="form-control" placeholder="Masukkan Prize 3" maxlength="10">
+                </div>
+                
+                <div class="form-group">
+                    <label for="shio">SHIO (Opsional)</label>
+                    <input type="text" id="shio" class="form-control" placeholder="Contoh: SHIO: BABI">
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-reset" id="cancelPrizeBtn">Batal</button>
+                    <button type="submit" class="btn btn-submit">Simpan Hasil</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
         // ===================== DATA STORAGE =====================
         let poolsData = [
             { id: 1, name: "HOKIDRAW 5D", days: "Senin - Minggu", close: "Result 24x", open: "1 Jam Sekali", closeTime: "00:00", openTime: "00:00", result: "", done: false, link: "https://hokidraw.com/live-draw.html" },
-            { id: 2, name: "TOTO MACAU PAGI", days: "Senin - Minggu", close: "00:00 WIB", open: "00:15 WIB", closeTime: "00:00", openTime: "00:15", result: "", done: false, link: "https://poolstotomacao.com/" },
-            { id: 3, name: "KENTUCKY MIDDAY", days: "Senin - Minggu", close: "01:05 WIB", open: "01:20 WIB", closeTime: "01:05", openTime: "01:20", result: "", done: false, link: "https://www.kylottery.com/apps/" },
-            { id: 4, name: "FLORIDA MIDDAY", days: "Senin - Minggu", close: "01:20 WIB", open: "01:30 WIB", closeTime: "01:20", openTime: "01:30", result: "", done: false, link: "https://floridalottery.com/games/draw-games/pick-4" },
+            { id: 2, name: "TOTO MACAU PAGI", days: "Senin - Minggu", close: "00:00 WIB", open: "00:15 WIB", closeTime: "00:00", openTime: "00:15", result: "", done: false, link: "https://kick.com/live-ttm4d },
+            { id: 3, name: "KENTUCKY MIDDAY", days: "Senin - Minggu", close: "01:05 WIB", open: "01:20 WIB", closeTime: "01:05", openTime: "01:20", result: "", done: false, link: "https://www.lotteryusa.com/kentucky/pick-4//" },
+            { id: 4, name: "FLORIDA MIDDAY", days: "Senin - Minggu", close: "01:20 WIB", open: "01:30 WIB", closeTime: "01:20", openTime: "01:30", result: "", done: false, link: "https://www.youtube.com/@floridalottery" },
             { id: 5, name: "HUAHIN 0100", days: "Senin - Minggu", close: "00:45 WIB", open: "01:00 WIB", closeTime: "00:45", openTime: "01:00", result: "", done: false, link: "https://huahinlottery.com/" },
-            { id: 6, name: "BANGKOK 0130", days: "Senin - Minggu", close: "01:15 WIB", open: "01:30 WIB", closeTime: "01:15", openTime: "01:30", result: "", done: false, link: "https://bangkokpoolstoday.com" },
+            { id: 6, name: "BANGKOK 0130", days: "Senin - Minggu", close: "01:15 WIB", open: "01:30 WIB", closeTime: "01:15", openTime: "01:30", result: "", done: false, link: "https://bangkokpoolstoday.com/liveDraw.html" },
             { id: 7, name: "NEWYORK MIDDAY", days: "Senin - Minggu", close: "02:15 WIB", open: "02:25 WIB", closeTime: "02:15", openTime: "02:25", result: "", done: false, link: "https://nylottery.ny.gov" },
             { id: 8, name: "CAROLINA DAY", days: "Senin - Minggu", close: "02:45 WIB", open: "03:00 WIB", closeTime: "02:45", openTime: "03:00", result: "", done: false, link: "https://nclottery.com/Pick4" },
-            { id: 9, name: "BRUNEI 02", days: "Senin - Minggu", close: "02:30 WIB", open: "02:45 WIB", closeTime: "02:30", openTime: "02:45", result: "", done: false, link: "https://bruneipools.com" },
+            { id: 9, name: "BRUNEI 02", days: "Senin - Minggu", close: "02:30 WIB", open: "02:45 WIB", closeTime: "02:30", openTime: "02:45", result: "", done: false, link: "https://bruneipools.com/live-draw.html" },
             { id: 10, name: "OREGON03", days: "Senin - Minggu", close: "03:50 WIB", open: "04:00 WIB", closeTime: "03:50", openTime: "04:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
             { id: 11, name: "OREGON06", days: "Senin - Minggu", close: "06:50 WIB", open: "07:00 WIB", closeTime: "06:50", openTime: "07:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
             { id: 12, name: "CALIFORNIA", days: "Senin - Minggu", close: "09:25 WIB", open: "09:30 WIB", closeTime: "09:25", openTime: "09:30", result: "", done: false, link: "https://www.calottery.com/play/draw-games/daily-4" },
-            { id: 13, name: "FLORIDA EVENING", days: "Senin - Minggu", close: "09:35 WIB", open: "09:45 WIB", closeTime: "09:35", openTime: "09:45", result: "", done: false, link: "https://floridalottery.com/games/draw-games/pick-4" },
+            { id: 13, name: "FLORIDA EVENING", days: "Senin - Minggu", close: "09:35 WIB", open: "09:45 WIB", closeTime: "09:35", openTime: "09:45", result: "", done: false, link: "https://www.youtube.com/@floridalottery" },
             { id: 14, name: "OREGON09", days: "Senin - Minggu", close: "09:50 WIB", open: "10:00 WIB", closeTime: "09:50", openTime: "10:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
-            { id: 15, name: "BANGKOK 0930", days: "Senin - Minggu", close: "09:15 WIB", open: "09:30 WIB", closeTime: "09:15", openTime: "09:30", result: "", done: false, link: "https://bangkokpoolstoday.com" },
+            { id: 15, name: "BANGKOK 0930", days: "Senin - Minggu", close: "09:15 WIB", open: "09:30 WIB", closeTime: "09:15", openTime: "09:30", result: "", done: false, link: "https://bangkokpoolstoday.com/liveDraw.html" },
             { id: 16, name: "NEW YORK EVENING", days: "Senin - Minggu", close: "10:25 WIB", open: "10:35 WIB", closeTime: "10:25", openTime: "10:35", result: "", done: false, link: "https://nylottery.ny.gov" },
-            { id: 17, name: "KENTUCKY EVENING", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://www.kylottery.com/apps/" },
+            { id: 17, name: "KENTUCKY EVENING", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://www.lotteryusa.com/kentucky/pick-4/" },
             { id: 18, name: "CAROLINA EVENING", days: "Senin - Minggu", close: "11:17 WIB", open: "11:22 WIB", closeTime: "11:17", openTime: "11:22", result: "", done: false, link: "https://nclottery.com/Pick4" },
-            { id: 19, name: "TOTO CAMBODIA LIVE", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://totocambodialive.com" },
-            { id: 20, name: "CHELSEA 11", days: "Senin - Minggu", close: "11:00 WIB", open: "11:15 WIB", closeTime: "11:00", openTime: "11:15", result: "", done: false, link: "https://chelseapools.co.uk" },
+            { id: 19, name: "TOTO CAMBODIA LIVE", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://kick.com/totocambodia" },
+            { id: 20, name: "CHELSEA 11", days: "Senin - Minggu", close: "11:00 WIB", open: "11:15 WIB", closeTime: "11:00", openTime: "11:15", result: "", done: false, link: "https://chelseapools.co.uk/live-draw.html" },
             { id: 21, name: "OREGON12", days: "Senin - Minggu", close: "12:50 WIB", open: "13:00 WIB", closeTime: "12:50", openTime: "13:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
-            { id: 22, name: "POIPET12", days: "Senin - Minggu", close: "12:15 WIB", open: "12:30 WIB", closeTime: "12:15", openTime: "12:30", result: "", done: false, link: "https://poipetlottery.com" },
+            { id: 22, name: "POIPET12", days: "Senin - Minggu", close: "12:15 WIB", open: "12:30 WIB", closeTime: "12:15", openTime: "12:30", result: "", done: false, link: "https://poipetlottery.com/liveresult" },
             { id: 23, name: "BULLSEYE", days: "Senin - Minggu", close: "12:00 WIB", open: "12:15 WIB", closeTime: "12:00", openTime: "12:15", result: "", done: false, link: "https://mylotto.co.nz" },
-            { id: 24, name: "TOTOMACAU SIANG", days: "Senin - Minggu", close: "13:00 WIB", open: "13:15 WIB", closeTime: "13:00", openTime: "13:15", result: "", done: false, link: "https://poolstotomacao.com" },
+            { id: 24, name: "TOTOMACAU SIANG", days: "Senin - Minggu", close: "13:00 WIB", open: "13:15 WIB", closeTime: "13:00", openTime: "13:15", result: "", done: false, link: "https://kick.com/live-ttm4d" },
             { id: 25, name: "SYDNEY", days: "Senin - Minggu", close: "13:49 WIB", open: "14:05 WIB", closeTime: "13:49", openTime: "14:05", result: "", done: false, link: "https://sydneylottobaru.site" },
-            { id: 26, name: "BRUNEI14", days: "Senin - Minggu", close: "14:30 WIB", open: "14:45 WIB", closeTime: "14:30", openTime: "14:45", result: "", done: false, link: "https://bruneipools.com" },
-            { id: 27, name: "CHELSEA 15", days: "Senin - Minggu", close: "15:00 WIB", open: "15:15 WIB", closeTime: "15:00", openTime: "15:15", result: "", done: false, link: "https://chelseapools.co.uk" },
+            { id: 26, name: "BRUNEI14", days: "Senin - Minggu", close: "14:30 WIB", open: "14:45 WIB", closeTime: "14:30", openTime: "14:45", result: "", done: false, link: "https://bruneipools.com/live-draw.html" },
+            { id: 27, name: "CHELSEA 15", days: "Senin - Minggu", close: "15:00 WIB", open: "15:15 WIB", closeTime: "15:00", openTime: "15:15", result: "", done: false, link: "https://chelseapools.co.uk/live-draw.html" },
             { id: 28, name: "TOTOMALI1530", days: "Senin - Minggu", close: "15:15 WIB", open: "15:30 WIB", closeTime: "15:15", openTime: "15:30", result: "", done: false, link: "https://totomali.com" },
-            { id: 29, name: "POIPET15", days: "Senin - Minggu", close: "15:15 WIB", open: "15:30 WIB", closeTime: "15:15", openTime: "15:30", result: "", done: false, link: "https://poipetlottery.com" },
-            { id: 30, name: "TOTOMACAU SORE", days: "Senin - Minggu", close: "16:00 WIB", open: "16:15 WIB", closeTime: "16:00", openTime: "16:15", result: "", done: false, link: "https://poolstotomacao.com" },
+            { id: 29, name: "POIPET15", days: "Senin - Minggu", close: "15:15 WIB", open: "15:30 WIB", closeTime: "15:15", openTime: "15:30", result: "", done: false, link: "https://poipetlottery.com/liveresult" },
+            { id: 30, name: "TOTOMACAU SORE", days: "Senin - Minggu", close: "16:00 WIB", open: "16:15 WIB", closeTime: "16:00", openTime: "16:15", result: "", done: false, link: "https://kick.com/live-ttm4d" },
             { id: 31, name: "HUAHIN 1630", days: "Senin - Minggu", close: "16:15 WIB", open: "16:30 WIB", closeTime: "16:15", openTime: "16:30", result: "", done: false, link: "https://huahinlottery.com" },
             { id: 32, name: "KING KONG4D I", days: "Senin - Minggu", close: "17:00 WIB", open: "17:15 WIB", closeTime: "17:00", openTime: "17:15", result: "", done: false, link: "https://kingkongpools.com" },
             { id: 33, name: "SINGAPORE", days: "SELASA & JUMAT LIBUR", close: "17:30 WIB", open: "17:45 WIB", closeTime: "17:30", openTime: "17:45", result: "", done: false, link: "https://www.singaporepools.com.sg/landing/en/Pages/index.html" },
             { id: 34, name: "MAGNUM4D", days: "RABU, SABTU, & MINGGU", close: "18:10 WIB", open: "18:40 WIB", closeTime: "18:10", openTime: "18:40", result: "", done: false, link: "https://www.magnum4d.my/en/" },
-            { id: 35, name: "TOTOMACAU MALAM I", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://poolstotomacao.com" },
-            { id: 36, name: "CHELSEA 19", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://chelseapools.co.uk" },
-            { id: 37, name: "POIPET19", days: "Senin - Minggu", close: "19:30 WIB", open: "19:45 WIB", closeTime: "19:30", openTime: "19:45", result: "", done: false, link: "https://poipetlottery.com" },
+            { id: 35, name: "TOTOMACAU MALAM I", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://kick.com/live-ttm4d" },
+            { id: 36, name: "CHELSEA 19", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://chelseapools.co.uk/live-draw.html" },
+            { id: 37, name: "POIPET19", days: "Senin - Minggu", close: "19:30 WIB", open: "19:45 WIB", closeTime: "19:30", openTime: "19:45", result: "", done: false, link: "https://poipetlottery.com/liveresult" },
             { id: 38, name: "PCSO", days: "MINGGU LIBUR", close: "19:50 WIB", open: "20:10 WIB", closeTime: "19:50", openTime: "20:10", result: "", done: false, link: "https://www.pcso.gov.ph" },
-            { id: 39, name: "TOTOMALI2030", days: "Senin - Minggu", close: "20:15 WIB", open: "20:30 WIB", closeTime: "20:15", openTime: "20:30", result: "", done: false, link: "https://totomali.com" },
+            { id: 39, name: "TOTOMALI2030", days: "Senin - Minggu", close: "20:15 WIB", open: "20:30 WIB", closeTime: "20:15", openTime: "20:30", result: "", done: false, link: "https://totomali.com/live-draw.html" },
             { id: 40, name: "HUAHIN2100", days: "Senin - Minggu", close: "20:30 WIB", open: "20:45 WIB", closeTime: "20:30", openTime: "20:45", result: "", done: false, link: "https://huahinlottery.com" },
-            { id: 41, name: "CHELSEA21", days: "Senin - Minggu", close: "21:00 WIB", open: "21:15 WIB", closeTime: "21:00", openTime: "21:15", result: "", done: false, link: "https://chelseapools.co.uk" },
-            { id: 42, name: "NEVADA", days: "Senin - Minggu", close: "21:15 WIB", open: "21:30 WIB", closeTime: "21:15", openTime: "21:30", result: "", done: false, link: "https://www.nevadalottery.us/" },
-            { id: 43, name: "BRUNEI21", days: "Senin - Minggu", close: "21:30 WIB", open: "21:45 WIB", closeTime: "21:30", openTime: "21:45", result: "", done: false, link: "https://bruneipools.com/" },
-            { id: 44, name: "TOTOMACAU MALAM-II", days: "Senin - Minggu", close: "22:00 WIB", open: "22:15 WIB", closeTime: "22:00", openTime: "22:15", result: "", done: false, link: "https://poolstotomacao.com" },
-            { id: 45, name: "POIPET22", days: "Senin - Minggu", close: "22:30 WIB", open: "22:45 WIB", closeTime: "22:30", openTime: "22:45", result: "", done: false, link: "https://poipetlottery.com" },
+            { id: 41, name: "CHELSEA21", days: "Senin - Minggu", close: "21:00 WIB", open: "21:15 WIB", closeTime: "21:00", openTime: "21:15", result: "", done: false, link: "https://chelseapools.co.uk/live-draw.html" },
+            { id: 42, name: "NEVADA", days: "Senin - Minggu", close: "21:15 WIB", open: "21:30 WIB", closeTime: "21:15", openTime: "21:30", result: "", done: false, link: "https://www.nevadalottery.us/livedraw/" },
+            { id: 43, name: "BRUNEI21", days: "Senin - Minggu", close: "21:30 WIB", open: "21:45 WIB", closeTime: "21:30", openTime: "21:45", result: "", done: false, link: "https://bruneipools.com/live-draw.html" },
+            { id: 44, name: "TOTOMACAU MALAM-II", days: "Senin - Minggu", close: "22:00 WIB", open: "22:15 WIB", closeTime: "22:00", openTime: "22:15", result: "", done: false, link: "https://kick.com/live-ttm4d" },
+            { id: 45, name: "POIPET22", days: "Senin - Minggu", close: "22:30 WIB", open: "22:45 WIB", closeTime: "22:30", openTime: "22:45", result: "", done: false, link: "https://poipetlottery.com/liveresult" },
             { id: 46, name: "HONGKONG", days: "Senin - Minggu", close: "22:59 WIB", open: "23:15 WIB", closeTime: "22:59", openTime: "23:15", result: "", done: false, link: "https://lottohongkong.fun" },
-            { id: 47, name: "TOTOMACAU MALAM-III", days: "Senin - Minggu", close: "23:00 WIB", open: "23:15 WIB", closeTime: "23:00", openTime: "23:15", result: "", done: false, link: "https://poolstotomacao.com" },
-            { id: 48, name: "TOTOMALI2330", days: "Senin - Minggu", close: "23:15 WIB", open: "23:30 WIB", closeTime: "23:15", openTime: "23:30", result: "", done: false, link: "https://totomali.com" },
+            { id: 47, name: "TOTOMACAU MALAM-III", days: "Senin - Minggu", close: "23:00 WIB", open: "23:15 WIB", closeTime: "23:00", openTime: "23:15", result: "", done: false, link: "https://kick.com/live-ttm4d" },
+            { id: 48, name: "TOTOMALI2330", days: "Senin - Minggu", close: "23:15 WIB", open: "23:30 WIB", closeTime: "23:15", openTime: "23:30", result: "", done: false, link: "https://totomali.com/live-draw.html" },
             { id: 49, name: "KING KONG4D II", days: "Senin - Minggu", close: "23:30 WIB", open: "23:45 WIB", closeTime: "23:30", openTime: "23:45", result: "", done: false, link: "https://kingkongpools.com" }
+        ];
+
+        // List pools dengan 3 prize
+        const poolsWithThreePrizes = [
+            "HUAHIN0100",
+            "BANGKOK 0130",
+            "BRUNEI02",
+            "BANGKOK 0930",
+            "TOTO CAMBODIA LIVE",
+            "CHELSEA11",
+            "POIPET12",
+            "SYDNEY",
+            "BRUNEI14",
+            "CHELSEA15",
+            "TOTOMALI1530",
+            "POIPET15",
+            "HUAHIN1630",
+            "SINGAPORE",
+            "MAGNUM4D",
+            "CHELSEA19",
+            "POIPET19",
+            "TOTOMALI2030",
+            "HUAHIN2100",
+            "CHELSEA21",
+            "NEVADA",
+            "BRUNEI21",
+            "POIPET22",
+            "HONGKONG",
+            "TOTOMALI2330"
         ];
 
         // Default users (admin and regular users)
         let users = [
-            { id: 1, username: "admin", fullname: "Administrator", password: "admin123", role: "admin", status: "active", lastLogin: "2024-01-27 10:30" },
-            { id: 2, username: "operator1", fullname: "Operator Utama", password: "op123", role: "user", status: "active", lastLogin: "2024-01-26 15:45" },
+            { id: 1, username: "rendy", fullname: "Administrator", password: "smb888", role: "admin", status: "active", lastLogin: "2024-01-27 10:30" },
+            { id: 2, username: "harwin", fullname: "Administrator", password: "anejit888", role: "admin", status: "active", lastLogin: "2024-01-26 15:45" },
             { id: 3, username: "monitor", fullname: "Monitor System", password: "monitor123", role: "user", status: "active", lastLogin: "2024-01-25 09:15" }
         ];
 
@@ -1451,6 +1552,49 @@
         let whitelistIps = [
             { id: 1, ip: "103.20.83.166", description: "IP Utama Server", createdAt: "2024-01-27", status: "active" }
         ];
+
+        // ===================== SESSION MANAGEMENT =====================
+        function saveSession(user) {
+            try {
+                localStorage.setItem('topanbos88_session', JSON.stringify({
+                    user: user,
+                    timestamp: new Date().getTime()
+                }));
+            } catch (e) {
+                console.error('Error saving session:', e);
+            }
+        }
+
+        function getSession() {
+            try {
+                const sessionData = localStorage.getItem('topanbos88_session');
+                if (!sessionData) return null;
+                
+                const session = JSON.parse(sessionData);
+                // Check if session is still valid (24 hours)
+                const now = new Date().getTime();
+                const sessionAge = now - session.timestamp;
+                const maxAge = 24 * 60 * 60 * 1000; // 24 hours
+                
+                if (sessionAge > maxAge) {
+                    clearSession();
+                    return null;
+                }
+                
+                return session.user;
+            } catch (e) {
+                console.error('Error getting session:', e);
+                return null;
+            }
+        }
+
+        function clearSession() {
+            try {
+                localStorage.removeItem('topanbos88_session');
+            } catch (e) {
+                console.error('Error clearing session:', e);
+            }
+        }
 
         // ===================== AUTHENTICATION =====================
         function login(username, password) {
@@ -1468,13 +1612,20 @@
             const now = new Date();
             user.lastLogin = now.toISOString().slice(0, 19).replace('T', ' ');
             
+            // Save session
+            const userData = {
+                username: user.username,
+                fullname: user.fullname,
+                role: user.role
+            };
+            saveSession(userData);
+            
+            // Update localStorage with new user data
+            saveToLocalStorage();
+            
             return { 
                 success: true, 
-                user: {
-                    username: user.username,
-                    fullname: user.fullname,
-                    role: user.role
-                }
+                user: userData
             };
         }
 
@@ -1483,12 +1634,16 @@
             document.body.classList.remove('logged-in');
             document.getElementById('loginScreen').style.display = 'flex';
             document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('sidebar').style.display = 'none';
+            document.getElementById('menuToggle').style.display = 'none';
         }
 
         function showDashboard(user) {
             document.body.classList.add('logged-in');
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('sidebar').style.display = 'block';
+            document.getElementById('menuToggle').style.display = 'flex';
             
             // Update user info
             document.getElementById('loggedInUser').textContent = user.fullname;
@@ -1507,12 +1662,18 @@
         }
 
         function logout() {
-            if (confirm("Apakah Anda yakin ingin logout?")) {
-                showLoginScreen();
-                // Clear any sensitive data
-                document.getElementById('loginForm').reset();
-                document.getElementById('loginError').textContent = '';
-            }
+            showConfirmModal(
+                'Logout',
+                'Apakah Anda yakin ingin logout?',
+                () => {
+                    clearSession();
+                    showLoginScreen();
+                    // Clear login form
+                    document.getElementById('loginForm').reset();
+                    document.getElementById('loginError').textContent = '';
+                    closeModal('confirmModal');
+                }
+            );
         }
 
         // ===================== POOLS MANAGEMENT =====================
@@ -1548,6 +1709,9 @@
             
             // Parse result for display
             const resultDetails = parseResultForDisplay(pool.result, pool.name);
+            
+            // Check if this pool has 3 prizes
+            const hasThreePrizes = poolsWithThreePrizes.some(p => pool.name.toUpperCase().includes(p.toUpperCase()));
             
             card.innerHTML = `
                 ${pool.done ? '<div class="done-badge">DONE</div>' : ''}
@@ -1596,15 +1760,49 @@
                             </button>
                         </div>
                     ` : `
-                        <div class="result-input-container">
-                            <input type="text" class="result-input" id="result-${pool.id}" 
-                                   placeholder="Masukkan hasil (contoh: 1234)" maxlength="10">
-                        </div>
-                        <div class="action-buttons">
-                            <button class="btn btn-submit" onclick="submitResult(${pool.id})">
-                                <i class="fas fa-check"></i> Submit Result
-                            </button>
-                        </div>
+                        ${hasThreePrizes ? `
+                            <div class="prize-input-modal">
+                                <div class="prize-input-group">
+                                    <label>Prize 1:</label>
+                                    <input type="text" class="prize-input" id="prize1-${pool.id}" 
+                                           placeholder="Input" maxlength="10" 
+                                           oninput="validateResultInput(this)">
+                                </div>
+                                <div class="prize-input-group">
+                                    <label>Prize 2:</label>
+                                    <input type="text" class="prize-input" id="prize2-${pool.id}" 
+                                           placeholder="Input" maxlength="10" 
+                                           oninput="validateResultInput(this)">
+                                </div>
+                                <div class="prize-input-group">
+                                    <label>Prize 3:</label>
+                                    <input type="text" class="prize-input" id="prize3-${pool.id}" 
+                                           placeholder="Input" maxlength="10" 
+                                           oninput="validateResultInput(this)">
+                                </div>
+                                <div class="prize-input-group">
+                                    <label>SHIO (Opsional):</label>
+                                    <input type="text" class="prize-input" id="shio-${pool.id}" 
+                                           placeholder="Contoh: SHIO: BABI" maxlength="20">
+                                </div>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-submit" onclick="submitThreePrizeResult(${pool.id})">
+                                    <i class="fas fa-check"></i> Submit 3 Prize Result
+                                </button>
+                            </div>
+                        ` : `
+                            <div class="result-input-container">
+                                <input type="text" class="result-input" id="result-${pool.id}" 
+                                       placeholder="Input" maxlength="10" 
+                                       oninput="validateResultInput(this)">
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-submit" onclick="submitResult(${pool.id})">
+                                    <i class="fas fa-check"></i> Submit Result
+                                </button>
+                            </div>
+                        `}
                     `}
                 </div>
                 
@@ -1614,6 +1812,17 @@
             `;
             
             return card;
+        }
+
+        // Validasi input result
+        function validateResultInput(input) {
+            // Hanya allow angka dan spasi
+            input.value = input.value.replace(/[^0-9\s]/g, '');
+            
+            // Limit max 10 karakter
+            if (input.value.length > 10) {
+                input.value = input.value.substring(0, 10);
+            }
         }
 
         function parseResultForDisplay(result, poolName) {
@@ -1684,6 +1893,13 @@
                 return;
             }
             
+            // Validasi format result (maksimal 10 karakter)
+            if (result.length > 10) {
+                alert('Result maksimal 10 karakter!');
+                if (input) input.focus();
+                return;
+            }
+            
             const pool = poolsData.find(p => p.id === poolId);
             if (pool) {
                 pool.result = result;
@@ -1694,29 +1910,140 @@
             }
         }
 
-        function editResult(poolId) {
+        function submitThreePrizeResult(poolId) {
+            const prize1 = document.getElementById(`prize1-${poolId}`)?.value.trim() || '';
+            const prize2 = document.getElementById(`prize2-${poolId}`)?.value.trim() || '';
+            const prize3 = document.getElementById(`prize3-${poolId}`)?.value.trim() || '';
+            const shio = document.getElementById(`shio-${poolId}`)?.value.trim() || '';
+            
+            if (!prize1) {
+                alert('Silakan masukkan Prize 1!');
+                document.getElementById(`prize1-${poolId}`)?.focus();
+                return;
+            }
+            
+            // Validasi format result (maksimal 10 karakter per prize)
+            if (prize1.length > 10 || prize2.length > 10 || prize3.length > 10) {
+                alert('Masing-masing prize maksimal 10 karakter!');
+                return;
+            }
+            
             const pool = poolsData.find(p => p.id === poolId);
             if (pool) {
-                const newResult = prompt('Edit hasil result:', pool.result);
+                // Format result dengan 3 prize
+                let result = `Prize 1: ${prize1}\nPrize 2: ${prize2}\nPrize 3: ${prize3}`;
+                if (shio) {
+                    result += `\nSHIO: ${shio}`;
+                }
+                
+                pool.result = result;
+                pool.done = true;
+                saveToLocalStorage();
+                loadPools();
+                updateStats();
+            }
+        }
+
+        function editResult(poolId) {
+            const pool = poolsData.find(p => p.id === poolId);
+            if (!pool) return;
+            
+            // Check if this pool has 3 prizes
+            const hasThreePrizes = poolsWithThreePrizes.some(p => pool.name.toUpperCase().includes(p.toUpperCase()));
+            
+            if (hasThreePrizes && pool.result.includes('Prize 1:')) {
+                // Parse existing prizes
+                const lines = pool.result.split('\n');
+                let prize1 = '', prize2 = '', prize3 = '', shio = '';
+                
+                lines.forEach(line => {
+                    if (line.includes('SHIO:')) {
+                        shio = line.split('SHIO:')[1].trim();
+                    } else if (line.includes('Prize 1:')) {
+                        prize1 = line.split('Prize 1:')[1].trim();
+                    } else if (line.includes('Prize 2:')) {
+                        prize2 = line.split('Prize 2:')[1].trim();
+                    } else if (line.includes('Prize 3:')) {
+                        prize3 = line.split('Prize 3:')[1].trim();
+                    }
+                });
+                
+                // Open prize modal for editing
+                document.getElementById('prizeModalTitle').textContent = `Edit Hasil ${pool.name}`;
+                document.getElementById('prizePoolId').value = poolId;
+                document.getElementById('prize1').value = prize1;
+                document.getElementById('prize2').value = prize2;
+                document.getElementById('prize3').value = prize3;
+                document.getElementById('shio').value = shio.replace('SHIO: ', '');
+                document.getElementById('prizeModal').classList.add('active');
+            } else {
+                // Simple edit for regular pools
+                const newResult = prompt('Edit hasil result (maks 10 karakter):', pool.result);
                 if (newResult !== null) {
-                    pool.result = newResult.trim();
+                    const trimmedResult = newResult.trim();
+                    if (trimmedResult.length > 10) {
+                        alert('Result maksimal 10 karakter!');
+                        return;
+                    }
+                    pool.result = trimmedResult;
                     saveToLocalStorage();
                     loadPools();
                 }
             }
         }
 
-        function resetResult(poolId) {
-            if (confirm('Reset result untuk pool ini?')) {
-                const pool = poolsData.find(p => p.id === poolId);
-                if (pool) {
-                    pool.result = '';
-                    pool.done = false;
-                    saveToLocalStorage();
-                    loadPools();
-                    updateStats();
-                }
+        function savePrizeResult(e) {
+            e.preventDefault();
+            
+            const poolId = document.getElementById('prizePoolId').value;
+            const prize1 = document.getElementById('prize1').value.trim();
+            const prize2 = document.getElementById('prize2').value.trim();
+            const prize3 = document.getElementById('prize3').value.trim();
+            const shio = document.getElementById('shio').value.trim();
+            
+            if (!prize1) {
+                alert('Silakan masukkan Prize 1!');
+                document.getElementById('prize1').focus();
+                return;
             }
+            
+            // Validasi format result (maksimal 10 karakter per prize)
+            if (prize1.length > 10 || prize2.length > 10 || prize3.length > 10) {
+                alert('Masing-masing prize maksimal 10 karakter!');
+                return;
+            }
+            
+            const pool = poolsData.find(p => p.id == poolId);
+            if (pool) {
+                // Format result dengan 3 prize
+                let result = `Prize 1: ${prize1}\nPrize 2: ${prize2}\nPrize 3: ${prize3}`;
+                if (shio) {
+                    result += `\nSHIO: ${shio}`;
+                }
+                
+                pool.result = result;
+                saveToLocalStorage();
+                loadPools();
+                closeModal('prizeModal');
+            }
+        }
+
+        function resetResult(poolId) {
+            showConfirmModal(
+                'Reset Result',
+                'Reset result untuk pool ini?',
+                () => {
+                    const pool = poolsData.find(p => p.id === poolId);
+                    if (pool) {
+                        pool.result = '';
+                        pool.done = false;
+                        saveToLocalStorage();
+                        loadPools();
+                        updateStats();
+                    }
+                    closeModal('confirmModal');
+                }
+            );
         }
 
         function copyResult(poolId) {
@@ -1751,16 +2078,13 @@
             navigator.clipboard.writeText(textToCopy)
                 .then(() => {
                     // Show success message
-                    const originalText = document.querySelector(`[onclick="copyResult(${poolId})"] i`).nextSibling.textContent;
                     const button = document.querySelector(`[onclick="copyResult(${poolId})"]`);
                     const icon = button.querySelector('i');
                     
                     icon.className = 'fas fa-check';
-                    button.querySelector('i').nextSibling.textContent = ' Copied!';
                     
                     setTimeout(() => {
                         icon.className = 'fas fa-copy';
-                        button.querySelector('i').nextSibling.textContent = originalText;
                     }, 2000);
                 })
                 .catch(err => {
@@ -2114,7 +2438,25 @@
                 }
                 
                 if (savedUsers) {
-                    users = JSON.parse(savedUsers);
+                    const parsedUsers = JSON.parse(savedUsers);
+                    // Merge with default users to keep passwords
+                    users.forEach(defaultUser => {
+                        const savedUser = parsedUsers.find(u => u.id === defaultUser.id);
+                        if (savedUser) {
+                            defaultUser.username = savedUser.username;
+                            defaultUser.fullname = savedUser.fullname;
+                            defaultUser.role = savedUser.role;
+                            defaultUser.status = savedUser.status;
+                            defaultUser.lastLogin = savedUser.lastLogin;
+                            // Don't update password from localStorage (keep original)
+                        }
+                    });
+                    // Add new users from localStorage
+                    parsedUsers.forEach(savedUser => {
+                        if (!users.some(u => u.id === savedUser.id)) {
+                            users.push(savedUser);
+                        }
+                    });
                 }
                 
                 if (savedIps) {
@@ -2158,6 +2500,16 @@
             
             // Create stars
             createStars();
+            
+            // Check session on page load
+            const currentUser = getSession();
+            if (currentUser) {
+                // User is logged in, show dashboard
+                showDashboard(currentUser);
+            } else {
+                // No valid session, show login screen
+                showLoginScreen();
+            }
             
             // Login form
             document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -2218,6 +2570,11 @@
             document.getElementById('closeIpModal').addEventListener('click', () => closeModal('ipModal'));
             document.getElementById('cancelIpBtn').addEventListener('click', () => closeModal('ipModal'));
             
+            // Prize modal
+            document.getElementById('prizeForm').addEventListener('submit', savePrizeResult);
+            document.getElementById('closePrizeModal').addEventListener('click', () => closeModal('prizeModal'));
+            document.getElementById('cancelPrizeBtn').addEventListener('click', () => closeModal('prizeModal'));
+            
             // Confirmation modal
             document.getElementById('closeConfirmModal').addEventListener('click', () => closeModal('confirmModal'));
             document.getElementById('cancelConfirmBtn').addEventListener('click', () => closeModal('confirmModal'));
@@ -2239,7 +2596,7 @@
                 });
             });
             
-            // Keyboard shortcuts - REMOVED Ctrl+F shortcut
+            // Keyboard shortcuts
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     document.querySelectorAll('.modal-overlay').forEach(modal => {
@@ -2253,12 +2610,15 @@
                 }
             });
             
-            // Show login screen initially
-            showLoginScreen();
+            // Handle page refresh
+            window.addEventListener('beforeunload', function() {
+                // Session already saved in localStorage
+            });
         });
         
         // Make functions available globally
         window.submitResult = submitResult;
+        window.submitThreePrizeResult = submitThreePrizeResult;
         window.editResult = editResult;
         window.resetResult = resetResult;
         window.copyResult = copyResult;
@@ -2266,6 +2626,7 @@
         window.resetPassword = resetPassword;
         window.deleteUser = deleteUser;
         window.deleteIp = deleteIp;
+        window.validateResultInput = validateResultInput;
     </script>
 </body>
 </html>
