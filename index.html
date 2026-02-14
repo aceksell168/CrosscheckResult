@@ -251,6 +251,83 @@
             font-size: 18px;
         }
 
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            margin-bottom: 8px;
+        }
+
+        .dropdown-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #a6c6ff;
+            background: rgba(10, 20, 50, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown-header:hover {
+            background: rgba(95, 180, 255, 0.15);
+            color: #ecf4ff;
+        }
+
+        .dropdown-header i:first-child {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .dropdown-header span {
+            flex: 1;
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-header.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-left: 25px;
+            padding-left: 10px;
+            border-left: 2px solid rgba(95, 180, 255, 0.2);
+        }
+
+        .dropdown-content.show {
+            max-height: 500px;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #a6c6ff;
+            font-size: 14px;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(95, 180, 255, 0.1);
+            color: #ecf4ff;
+        }
+
+        .dropdown-item i {
+            width: 16px;
+            font-size: 14px;
+        }
+
         .filter-buttons {
             display: flex;
             flex-direction: column;
@@ -418,11 +495,11 @@
             opacity: 0.8;
         }
 
-        /* Grid */
+        /* Grid - 6 cards per row on desktop */
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
         }
 
         /* Card */
@@ -431,13 +508,14 @@
             flex-direction: column;
             background: linear-gradient(145deg, var(--bg-card), rgba(10, 20, 50, 0.8));
             border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 22px 18px;
+            border-radius: 12px;
+            padding: 15px 12px;
             transition: all 0.4s ease;
             box-shadow: 0 8px 20px rgba(0, 10, 30, 0.5);
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
+            font-size: 13px;
         }
 
         .card.done {
@@ -455,38 +533,40 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, var(--primary-color), var(--danger-color));
         }
 
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-5px) scale(1.01);
             box-shadow: 
-                0 0 20px rgba(255, 40, 40, 0.8),
-                0 15px 30px rgba(255, 0, 0, 0.4);
+                0 0 15px rgba(255, 40, 40, 0.6),
+                0 10px 20px rgba(255, 0, 0, 0.3);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .card h2 {
             font-family: 'Orbitron', sans-serif;
             color: #7cd4ff;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 600;
             text-shadow: 0 0 8px rgba(124, 212, 255, 0.5);
+            margin-right: 5px;
         }
 
         .status-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
             font-weight: 600;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .status-ongoing {
@@ -503,17 +583,23 @@
 
         /* Info */
         .info {
-            font-size: 15px;
-            margin: 8px 0;
+            font-size: 12px;
+            margin: 5px 0;
             width: 100%;
             display: flex;
             justify-content: space-between;
             border-bottom: 1px solid rgba(95, 180, 255, 0.1);
-            padding-bottom: 5px;
+            padding-bottom: 3px;
         }
 
         .info span {
             font-weight: 600;
+        }
+
+        .info i {
+            margin-right: 3px;
+            color: var(--primary-color);
+            font-size: 11px;
         }
 
         .close {
@@ -529,24 +615,24 @@
         /* Countdown Timer */
         .countdown-container {
             background: rgba(10, 20, 50, 0.7);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 15px 0;
+            border-radius: 8px;
+            padding: 8px;
+            margin: 8px 0;
             border: 1px solid rgba(255, 59, 59, 0.3);
         }
 
         .countdown-title {
-            font-size: 14px;
+            font-size: 11px;
             color: #ff6e6e;
-            margin-bottom: 8px;
+            margin-bottom: 3px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
         }
 
         .countdown-timer {
             font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
+            font-size: 16px;
             color: var(--danger-color);
             text-align: center;
             font-weight: 700;
@@ -556,70 +642,87 @@
         /* Result Input */
         .result-section {
             background: rgba(10, 20, 50, 0.7);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 15px 0;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 8px 0;
             border: 1px solid var(--border-color);
         }
 
         .result-title {
-            font-size: 14px;
+            font-size: 11px;
             color: var(--primary-color);
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
         }
 
         .result-input-container {
             display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 5px;
+            margin-bottom: 8px;
         }
 
         .result-input {
             flex: 1;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 6px 8px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
             background: rgba(15, 30, 70, 0.7);
             color: #ecf4ff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
+            font-size: 14px;
             text-align: center;
             letter-spacing: 2px;
+            max-width: 80px;
+        }
+
+        .result-input::placeholder {
+            font-size: 12px;
         }
 
         .result-display {
             font-family: 'Orbitron', sans-serif;
-            font-size: 22px;
+            font-size: 16px;
             color: var(--success-color);
             text-align: center;
-            padding: 10px;
+            padding: 6px;
             background: rgba(110, 255, 215, 0.1);
-            border-radius: 8px;
-            margin-bottom: 10px;
-            letter-spacing: 3px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
             text-shadow: 0 0 10px rgba(110, 255, 215, 0.5);
         }
 
+        /* Action Buttons - Standardized */
         .action-buttons {
             display: flex;
-            gap: 10px;
+            gap: 5px;
             flex-wrap: wrap;
+            margin-top: 6px;
         }
 
         .btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 10px;
+            flex: 1 1 auto;
+            min-width: 60px;
+            padding: 6px 4px;
+            border-radius: 6px;
             border: none;
             font-family: 'Exo 2', sans-serif;
             font-weight: 600;
+            font-size: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            min-width: 120px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            line-height: 1.2;
+        }
+
+        .btn i {
+            font-size: 10px;
         }
 
         .btn-submit {
@@ -646,67 +749,73 @@
             background: linear-gradient(90deg, #9d4edd, #7b2cbf);
             color: white;
             font-weight: 700;
-            padding: 14px;
-            font-size: 16px;
+            padding: 8px 6px;
+            font-size: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
+            gap: 5px;
+            margin-top: 8px;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
+            width: 100%;
         }
 
         .btn-visit:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(157, 78, 221, 0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(157, 78, 221, 0.6);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .done-badge {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 10px;
+            right: 10px;
             background: var(--success-color);
             color: #0c1b33;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 9px;
             font-weight: 700;
-            transform: rotate(15deg);
-            box-shadow: 0 0 10px rgba(110, 255, 215, 0.5);
+            transform: rotate(10deg);
+            box-shadow: 0 0 8px rgba(110, 255, 215, 0.5);
             z-index: 2;
         }
 
         /* Result Details */
         .result-details {
             background: rgba(10, 20, 50, 0.8);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--primary-color);
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-left: 3px solid var(--primary-color);
         }
 
         .result-header {
             font-family: 'Orbitron', sans-serif;
             color: var(--primary-color);
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 12px;
+            margin-bottom: 5px;
             text-align: center;
             border-bottom: 1px solid rgba(95, 180, 255, 0.3);
-            padding-bottom: 8px;
+            padding-bottom: 4px;
         }
 
         .result-prize {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-            padding: 5px 10px;
+            margin-bottom: 4px;
+            padding: 3px 6px;
             background: rgba(15, 30, 70, 0.5);
-            border-radius: 5px;
+            border-radius: 4px;
+            font-size: 11px;
         }
 
         .result-prize-label {
@@ -722,44 +831,51 @@
 
         .result-shio {
             text-align: center;
-            margin-top: 10px;
-            padding-top: 10px;
+            margin-top: 5px;
+            padding-top: 5px;
             border-top: 1px solid rgba(95, 180, 255, 0.3);
             color: #ffcc00;
             font-weight: 600;
+            font-size: 11px;
         }
 
         /* Prize Input Modal */
         .prize-input-modal {
             background: rgba(10, 20, 50, 0.7);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 8px 0;
             border: 1px solid var(--border-color);
         }
 
         .prize-input-group {
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
         .prize-input-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             color: #a6c6ff;
-            font-size: 14px;
+            font-size: 11px;
         }
 
         .prize-input {
             width: 100%;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 6px 8px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
             background: rgba(15, 30, 70, 0.7);
             color: #ecf4ff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
+            font-size: 14px;
             text-align: center;
             letter-spacing: 2px;
+            max-width: 100px;
+            margin: 0 auto;
+        }
+
+        .prize-input::placeholder {
+            font-size: 11px;
         }
 
         /* User Management Section */
@@ -780,6 +896,9 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-primary:hover {
@@ -853,6 +972,9 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .btn-edit-small {
@@ -989,6 +1111,18 @@
         }
 
         /* Responsive */
+        @media (max-width: 1600px) {
+            .container {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 1400px) {
+            .container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
         @media (max-width: 1024px) {
             .sidebar {
                 width: 250px;
@@ -999,7 +1133,7 @@
             }
             
             .container {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -1050,6 +1184,10 @@
                 cursor: pointer;
                 font-size: 20px;
             }
+
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 480px) {
@@ -1071,15 +1209,17 @@
                 width: 95%;
                 padding: 20px;
             }
-            
-            .btn {
-                min-width: 100px;
-            }
         }
 
         /* Menu Toggle Button (Mobile) */
         .menu-toggle {
             display: none;
+        }
+
+        /* Emoji styles */
+        .info i, .countdown-title i, .result-title i {
+            color: var(--primary-color);
+            margin-right: 4px;
         }
     </style>
 </head>
@@ -1158,6 +1298,222 @@
         
         <div class="menu-section">
             <div class="menu-title">
+                <i class="fas fa-filter"></i> Kategori Pools
+            </div>
+            
+            <!-- Dropdown Categories -->
+            <div class="dropdown-menu">
+                <div class="dropdown-header" onclick="toggleDropdown('chelseaDropdown')">
+                    <i class="fas fa-futbol"></i>
+                    <span>Chelsea Pools</span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </div>
+                <div class="dropdown-content" id="chelseaDropdown">
+                    <div class="dropdown-item" onclick="filterByCategory('chelsea')">
+                        <i class="fas fa-circle"></i> Semua Chelsea
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('CHELSEA 11')">
+                        <i class="fas fa-clock"></i> CHELSEA 11
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('CHELSEA 15')">
+                        <i class="fas fa-clock"></i> CHELSEA 15
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('CHELSEA 19')">
+                        <i class="fas fa-clock"></i> CHELSEA 19
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('CHELSEA21')">
+                        <i class="fas fa-clock"></i> CHELSEA21
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dropdown-menu">
+                <div class="dropdown-header" onclick="toggleDropdown('macauDropdown')">
+                    <i class="fas fa-city"></i>
+                    <span>Macau Pools</span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </div>
+                <div class="dropdown-content" id="macauDropdown">
+                    <div class="dropdown-item" onclick="filterByCategory('macau')">
+                        <i class="fas fa-circle"></i> Semua Macau
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTO MACAU PAGI')">
+                        <i class="fas fa-sun"></i> TOTO MACAU PAGI
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTOMACAU SIANG')">
+                        <i class="fas fa-cloud-sun"></i> TOTOMACAU SIANG
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTOMACAU SORE')">
+                        <i class="fas fa-cloud"></i> TOTOMACAU SORE
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTOMACAU MALAM I')">
+                        <i class="fas fa-moon"></i> TOTOMACAU MALAM I
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTOMACAU MALAM-II')">
+                        <i class="fas fa-moon"></i> TOTOMACAU MALAM-II
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTOMACAU MALAM-III')">
+                        <i class="fas fa-moon"></i> TOTOMACAU MALAM-III
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dropdown-menu">
+                <div class="dropdown-header" onclick="toggleDropdown('usaDropdown')">
+                    <i class="fas fa-flag-usa"></i>
+                    <span>USA Pools</span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </div>
+                <div class="dropdown-content" id="usaDropdown">
+                    <div class="dropdown-item" onclick="filterByCategory('usa')">
+                        <i class="fas fa-circle"></i> Semua USA
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('KENTUCKY MIDDAY')">
+                        <i class="fas fa-clock"></i> KENTUCKY MIDDAY
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('FLORIDA MIDDAY')">
+                        <i class="fas fa-clock"></i> FLORIDA MIDDAY
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('NEWYORK MIDDAY')">
+                        <i class="fas fa-clock"></i> NEWYORK MIDDAY
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('CAROLINA DAY')">
+                        <i class="fas fa-clock"></i> CAROLINA DAY
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('OREGON03')">
+                        <i class="fas fa-clock"></i> OREGON03
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('OREGON06')">
+                        <i class="fas fa-clock"></i> OREGON06
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('CALIFORNIA')">
+                        <i class="fas fa-clock"></i> CALIFORNIA
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('FLORIDA EVENING')">
+                        <i class="fas fa-clock"></i> FLORIDA EVENING
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('OREGON09')">
+                        <i class="fas fa-clock"></i> OREGON09
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('NEW YORK EVENING')">
+                        <i class="fas fa-clock"></i> NEW YORK EVENING
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('KENTUCKY EVENING')">
+                        <i class="fas fa-clock"></i> KENTUCKY EVENING
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('CAROLINA EVENING')">
+                        <i class="fas fa-clock"></i> CAROLINA EVENING
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('OREGON12')">
+                        <i class="fas fa-clock"></i> OREGON12
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('NEVADA')">
+                        <i class="fas fa-clock"></i> NEVADA
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dropdown-menu">
+                <div class="dropdown-header" onclick="toggleDropdown('asiaDropdown')">
+                    <i class="fas fa-globe-asia"></i>
+                    <span>Asia Pools</span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </div>
+                <div class="dropdown-content" id="asiaDropdown">
+                    <div class="dropdown-item" onclick="filterByCategory('asia')">
+                        <i class="fas fa-circle"></i> Semua Asia
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('HUAHIN 0100')">
+                        <i class="fas fa-clock"></i> HUAHIN 0100
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('BANGKOK 0130')">
+                        <i class="fas fa-clock"></i> BANGKOK 0130
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('BRUNEI 02')">
+                        <i class="fas fa-clock"></i> BRUNEI 02
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('BANGKOK 0930')">
+                        <i class="fas fa-clock"></i> BANGKOK 0930
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTO CAMBODIA LIVE')">
+                        <i class="fas fa-clock"></i> TOTO CAMBODIA LIVE
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('POIPET12')">
+                        <i class="fas fa-clock"></i> POIPET12
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('BULLSEYE')">
+                        <i class="fas fa-clock"></i> BULLSEYE
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('SYDNEY')">
+                        <i class="fas fa-clock"></i> SYDNEY
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('BRUNEI14')">
+                        <i class="fas fa-clock"></i> BRUNEI14
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTOMALI1530')">
+                        <i class="fas fa-clock"></i> TOTOMALI1530
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('POIPET15')">
+                        <i class="fas fa-clock"></i> POIPET15
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('HUAHIN 1630')">
+                        <i class="fas fa-clock"></i> HUAHIN 1630
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('SINGAPORE')">
+                        <i class="fas fa-clock"></i> SINGAPORE
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('MAGNUM4D')">
+                        <i class="fas fa-clock"></i> MAGNUM4D
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('POIPET19')">
+                        <i class="fas fa-clock"></i> POIPET19
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('PCSO')">
+                        <i class="fas fa-clock"></i> PCSO
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTOMALI2030')">
+                        <i class="fas fa-clock"></i> TOTOMALI2030
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('HUAHIN2100')">
+                        <i class="fas fa-clock"></i> HUAHIN2100
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('BRUNEI21')">
+                        <i class="fas fa-clock"></i> BRUNEI21
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('POIPET22')">
+                        <i class="fas fa-clock"></i> POIPET22
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('HONGKONG')">
+                        <i class="fas fa-clock"></i> HONGKONG
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('TOTOMALI2330')">
+                        <i class="fas fa-clock"></i> TOTOMALI2330
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('KING KONG4D I')">
+                        <i class="fas fa-clock"></i> KING KONG4D I
+                    </div>
+                    <div class="dropdown-item" onclick="filterByPool('KING KONG4D II')">
+                        <i class="fas fa-clock"></i> KING KONG4D II
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dropdown-menu">
+                <div class="dropdown-header" onclick="toggleDropdown('otherDropdown')">
+                    <i class="fas fa-ellipsis-h"></i>
+                    <span>Lainnya</span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </div>
+                <div class="dropdown-content" id="otherDropdown">
+                    <div class="dropdown-item" onclick="filterByPool('HOKIDRAW 5D')">
+                        <i class="fas fa-dice"></i> HOKIDRAW 5D
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-title">
                 <i class="fas fa-filter"></i> Filter Status
             </div>
             <div class="filter-buttons">
@@ -1200,7 +1556,7 @@
                 <h1>Jadwal Pasaran Togel TopanBos88</h1>
                 <div class="stats">
                     <div class="stat-box">
-                        <div class="stat-value" id="totalPools">44</div>
+                        <div class="stat-value" id="totalPools">49</div>
                         <div class="stat-label">Total Pools</div>
                     </div>
                     <div class="stat-box">
@@ -1208,7 +1564,7 @@
                         <div class="stat-label">Selesai</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-value" id="ongoingPools">44</div>
+                        <div class="stat-value" id="ongoingPools">49</div>
                         <div class="stat-label">Berlangsung</div>
                     </div>
                 </div>
@@ -1216,7 +1572,6 @@
             
             <div class="search-container">
                 <input type="text" id="searchPools" placeholder="🔍 Cari Nama Pools..." />
-                <div class="search-icon">⚡</div>
             </div>
             
             <div class="container" id="poolsContainer">
@@ -1289,32 +1644,32 @@
                 <div class="card" style="margin-bottom: 20px;">
                     <h2>Pengaturan Waktu Reset</h2>
                     <div class="info">
-                        <span>Reset Otomatis:</span>
+                        <span><i class="fas fa-clock"></i> Reset Otomatis:</span>
                         <select id="resetTime" class="form-control" style="width: auto; padding: 8px 15px;">
                             <option value="00:00">00:00 WIB</option>
                             <option value="12:00">12:00 WIB</option>
                             <option value="06:00">06:00 WIB</option>
                         </select>
                     </div>
-                    <button class="btn" style="margin-top: 15px; width: 100%;">Simpan Pengaturan</button>
+                    <button class="btn btn-submit" style="margin-top: 15px; width: 100%;">Simpan Pengaturan</button>
                 </div>
                 
                 <div class="card">
                     <h2>Informasi Sistem</h2>
                     <div class="info">
-                        <span>Versi:</span>
+                        <span><i class="fas fa-code-branch"></i> Versi:</span>
                         <span>v2.1.0</span>
                     </div>
                     <div class="info">
-                        <span>Total User:</span>
+                        <span><i class="fas fa-users"></i> Total User:</span>
                         <span id="systemUserCount">3</span>
                     </div>
                     <div class="info">
-                        <span>Total IP Whitelist:</span>
+                        <span><i class="fas fa-shield-alt"></i> Total IP Whitelist:</span>
                         <span id="systemIpCount">1</span>
                     </div>
                     <div class="info">
-                        <span>Last Backup:</span>
+                        <span><i class="fas fa-database"></i> Last Backup:</span>
                         <span>2024-01-27 00:00</span>
                     </div>
                 </div>
@@ -1431,18 +1786,18 @@
                 <input type="hidden" id="prizePoolId">
                 
                 <div class="form-group">
-                    <label for="prize1">Prize 1</label>
-                    <input type="text" id="prize1" class="form-control" placeholder="Masukkan Prize 1" maxlength="10" required>
+                    <label for="prize1">Prize 1 (4 digit)</label>
+                    <input type="text" id="prize1" class="form-control" placeholder="Contoh: 1234" maxlength="4" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="prize2">Prize 2</label>
-                    <input type="text" id="prize2" class="form-control" placeholder="Masukkan Prize 2" maxlength="10">
+                    <label for="prize2">Prize 2 (4 digit)</label>
+                    <input type="text" id="prize2" class="form-control" placeholder="Contoh: 5678" maxlength="4">
                 </div>
                 
                 <div class="form-group">
-                    <label for="prize3">Prize 3</label>
-                    <input type="text" id="prize3" class="form-control" placeholder="Masukkan Prize 3" maxlength="10">
+                    <label for="prize3">Prize 3 (4 digit)</label>
+                    <input type="text" id="prize3" class="form-control" placeholder="Contoh: 9012" maxlength="4">
                 </div>
                 
                 <div class="form-group">
@@ -1461,75 +1816,75 @@
     <script>
         // ===================== DATA STORAGE =====================
         let poolsData = [
-            { id: 1, name: "HOKIDRAW 5D", days: "Senin - Minggu", close: "Result 24x", open: "1 Jam Sekali", closeTime: "00:00", openTime: "00:00", result: "", done: false, link: "https://hokidraw.com/live-draw.html" },
-            { id: 2, name: "TOTO MACAU PAGI", days: "Senin - Minggu", close: "00:00 WIB", open: "00:15 WIB", closeTime: "00:00", openTime: "00:15", result: "", done: false, link: "https://poolstotomacao.com/" },
-            { id: 3, name: "KENTUCKY MIDDAY", days: "Senin - Minggu", close: "01:05 WIB", open: "01:20 WIB", closeTime: "01:05", openTime: "01:20", result: "", done: false, link: "https://www.kylottery.com/apps/" },
-            { id: 4, name: "FLORIDA MIDDAY", days: "Senin - Minggu", close: "01:20 WIB", open: "01:30 WIB", closeTime: "01:20", openTime: "01:30", result: "", done: false, link: "https://floridalottery.com/games/draw-games/pick-4" },
-            { id: 5, name: "HUAHIN 0100", days: "Senin - Minggu", close: "00:45 WIB", open: "01:00 WIB", closeTime: "00:45", openTime: "01:00", result: "", done: false, link: "https://huahinlottery.com/" },
-            { id: 6, name: "BANGKOK 0130", days: "Senin - Minggu", close: "01:15 WIB", open: "01:30 WIB", closeTime: "01:15", openTime: "01:30", result: "", done: false, link: "https://bangkokpoolstoday.com" },
-            { id: 7, name: "NEWYORK MIDDAY", days: "Senin - Minggu", close: "02:15 WIB", open: "02:25 WIB", closeTime: "02:15", openTime: "02:25", result: "", done: false, link: "https://nylottery.ny.gov" },
-            { id: 8, name: "CAROLINA DAY", days: "Senin - Minggu", close: "02:45 WIB", open: "03:00 WIB", closeTime: "02:45", openTime: "03:00", result: "", done: false, link: "https://nclottery.com/Pick4" },
-            { id: 9, name: "BRUNEI 02", days: "Senin - Minggu", close: "02:30 WIB", open: "02:45 WIB", closeTime: "02:30", openTime: "02:45", result: "", done: false, link: "https://bruneipools.com" },
-            { id: 10, name: "OREGON03", days: "Senin - Minggu", close: "03:50 WIB", open: "04:00 WIB", closeTime: "03:50", openTime: "04:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
-            { id: 11, name: "OREGON06", days: "Senin - Minggu", close: "06:50 WIB", open: "07:00 WIB", closeTime: "06:50", openTime: "07:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
-            { id: 12, name: "CALIFORNIA", days: "Senin - Minggu", close: "09:25 WIB", open: "09:30 WIB", closeTime: "09:25", openTime: "09:30", result: "", done: false, link: "https://www.calottery.com/play/draw-games/daily-4" },
-            { id: 13, name: "FLORIDA EVENING", days: "Senin - Minggu", close: "09:35 WIB", open: "09:45 WIB", closeTime: "09:35", openTime: "09:45", result: "", done: false, link: "https://floridalottery.com/games/draw-games/pick-4" },
-            { id: 14, name: "OREGON09", days: "Senin - Minggu", close: "09:50 WIB", open: "10:00 WIB", closeTime: "09:50", openTime: "10:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
-            { id: 15, name: "BANGKOK 0930", days: "Senin - Minggu", close: "09:15 WIB", open: "09:30 WIB", closeTime: "09:15", openTime: "09:30", result: "", done: false, link: "https://bangkokpoolstoday.com" },
-            { id: 16, name: "NEW YORK EVENING", days: "Senin - Minggu", close: "10:25 WIB", open: "10:35 WIB", closeTime: "10:25", openTime: "10:35", result: "", done: false, link: "https://nylottery.ny.gov" },
-            { id: 17, name: "KENTUCKY EVENING", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://www.kylottery.com/apps/" },
-            { id: 18, name: "CAROLINA EVENING", days: "Senin - Minggu", close: "11:17 WIB", open: "11:22 WIB", closeTime: "11:17", openTime: "11:22", result: "", done: false, link: "https://nclottery.com/Pick4" },
-            { id: 19, name: "TOTO CAMBODIA LIVE", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://totocambodialive.com" },
-            { id: 20, name: "CHELSEA 11", days: "Senin - Minggu", close: "11:00 WIB", open: "11:15 WIB", closeTime: "11:00", openTime: "11:15", result: "", done: false, link: "https://chelseapools.co.uk" },
-            { id: 21, name: "OREGON12", days: "Senin - Minggu", close: "12:50 WIB", open: "13:00 WIB", closeTime: "12:50", openTime: "13:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers" },
-            { id: 22, name: "POIPET12", days: "Senin - Minggu", close: "12:15 WIB", open: "12:30 WIB", closeTime: "12:15", openTime: "12:30", result: "", done: false, link: "https://poipetlottery.com" },
-            { id: 23, name: "BULLSEYE", days: "Senin - Minggu", close: "12:00 WIB", open: "12:15 WIB", closeTime: "12:00", openTime: "12:15", result: "", done: false, link: "https://mylotto.co.nz" },
-            { id: 24, name: "TOTOMACAU SIANG", days: "Senin - Minggu", close: "13:00 WIB", open: "13:15 WIB", closeTime: "13:00", openTime: "13:15", result: "", done: false, link: "https://poolstotomacao.com" },
-            { id: 25, name: "SYDNEY", days: "Senin - Minggu", close: "13:49 WIB", open: "14:05 WIB", closeTime: "13:49", openTime: "14:05", result: "", done: false, link: "https://sydneylottobaru.site" },
-            { id: 26, name: "BRUNEI14", days: "Senin - Minggu", close: "14:30 WIB", open: "14:45 WIB", closeTime: "14:30", openTime: "14:45", result: "", done: false, link: "https://bruneipools.com" },
-            { id: 27, name: "CHELSEA 15", days: "Senin - Minggu", close: "15:00 WIB", open: "15:15 WIB", closeTime: "15:00", openTime: "15:15", result: "", done: false, link: "https://chelseapools.co.uk" },
-            { id: 28, name: "TOTOMALI1530", days: "Senin - Minggu", close: "15:15 WIB", open: "15:30 WIB", closeTime: "15:15", openTime: "15:30", result: "", done: false, link: "https://totomali.com" },
-            { id: 29, name: "POIPET15", days: "Senin - Minggu", close: "15:15 WIB", open: "15:30 WIB", closeTime: "15:15", openTime: "15:30", result: "", done: false, link: "https://poipetlottery.com" },
-            { id: 30, name: "TOTOMACAU SORE", days: "Senin - Minggu", close: "16:00 WIB", open: "16:15 WIB", closeTime: "16:00", openTime: "16:15", result: "", done: false, link: "https://poolstotomacao.com" },
-            { id: 31, name: "HUAHIN 1630", days: "Senin - Minggu", close: "16:15 WIB", open: "16:30 WIB", closeTime: "16:15", openTime: "16:30", result: "", done: false, link: "https://huahinlottery.com" },
-            { id: 32, name: "KING KONG4D I", days: "Senin - Minggu", close: "17:00 WIB", open: "17:15 WIB", closeTime: "17:00", openTime: "17:15", result: "", done: false, link: "https://kingkongpools.com" },
-            { id: 33, name: "SINGAPORE", days: "SELASA & JUMAT LIBUR", close: "17:30 WIB", open: "17:45 WIB", closeTime: "17:30", openTime: "17:45", result: "", done: false, link: "https://www.singaporepools.com.sg/landing/en/Pages/index.html" },
-            { id: 34, name: "MAGNUM4D", days: "RABU, SABTU, & MINGGU", close: "18:10 WIB", open: "18:40 WIB", closeTime: "18:10", openTime: "18:40", result: "", done: false, link: "https://www.magnum4d.my/en/" },
-            { id: 35, name: "TOTOMACAU MALAM I", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://poolstotomacao.com" },
-            { id: 36, name: "CHELSEA 19", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://chelseapools.co.uk" },
-            { id: 37, name: "POIPET19", days: "Senin - Minggu", close: "19:30 WIB", open: "19:45 WIB", closeTime: "19:30", openTime: "19:45", result: "", done: false, link: "https://poipetlottery.com" },
-            { id: 38, name: "PCSO", days: "MINGGU LIBUR", close: "19:50 WIB", open: "20:10 WIB", closeTime: "19:50", openTime: "20:10", result: "", done: false, link: "https://www.pcso.gov.ph" },
-            { id: 39, name: "TOTOMALI2030", days: "Senin - Minggu", close: "20:15 WIB", open: "20:30 WIB", closeTime: "20:15", openTime: "20:30", result: "", done: false, link: "https://totomali.com" },
-            { id: 40, name: "HUAHIN2100", days: "Senin - Minggu", close: "20:30 WIB", open: "20:45 WIB", closeTime: "20:30", openTime: "20:45", result: "", done: false, link: "https://huahinlottery.com" },
-            { id: 41, name: "CHELSEA21", days: "Senin - Minggu", close: "21:00 WIB", open: "21:15 WIB", closeTime: "21:00", openTime: "21:15", result: "", done: false, link: "https://chelseapools.co.uk" },
-            { id: 42, name: "NEVADA", days: "Senin - Minggu", close: "21:15 WIB", open: "21:30 WIB", closeTime: "21:15", openTime: "21:30", result: "", done: false, link: "https://www.nevadalottery.us/" },
-            { id: 43, name: "BRUNEI21", days: "Senin - Minggu", close: "21:30 WIB", open: "21:45 WIB", closeTime: "21:30", openTime: "21:45", result: "", done: false, link: "https://bruneipools.com/" },
-            { id: 44, name: "TOTOMACAU MALAM-II", days: "Senin - Minggu", close: "22:00 WIB", open: "22:15 WIB", closeTime: "22:00", openTime: "22:15", result: "", done: false, link: "https://poolstotomacao.com" },
-            { id: 45, name: "POIPET22", days: "Senin - Minggu", close: "22:30 WIB", open: "22:45 WIB", closeTime: "22:30", openTime: "22:45", result: "", done: false, link: "https://poipetlottery.com" },
-            { id: 46, name: "HONGKONG", days: "Senin - Minggu", close: "22:59 WIB", open: "23:15 WIB", closeTime: "22:59", openTime: "23:15", result: "", done: false, link: "https://lottohongkong.fun" },
-            { id: 47, name: "TOTOMACAU MALAM-III", days: "Senin - Minggu", close: "23:00 WIB", open: "23:15 WIB", closeTime: "23:00", openTime: "23:15", result: "", done: false, link: "https://poolstotomacao.com" },
-            { id: 48, name: "TOTOMALI2330", days: "Senin - Minggu", close: "23:15 WIB", open: "23:30 WIB", closeTime: "23:15", openTime: "23:30", result: "", done: false, link: "https://totomali.com" },
-            { id: 49, name: "KING KONG4D II", days: "Senin - Minggu", close: "23:30 WIB", open: "23:45 WIB", closeTime: "23:30", openTime: "23:45", result: "", done: false, link: "https://kingkongpools.com" }
+            { id: 1, name: "HOKIDRAW 5D", days: "Senin - Minggu", close: "Result 24x", open: "1 Jam Sekali", closeTime: "00:00", openTime: "00:00", result: "", done: false, link: "https://hokidraw.com/live-draw.html", category: "other" },
+            { id: 2, name: "TOTO MACAU PAGI", days: "Senin - Minggu", close: "00:00 WIB", open: "00:15 WIB", closeTime: "00:00", openTime: "00:15", result: "", done: false, link: "https://poolstotomacao.com/", category: "macau" },
+            { id: 3, name: "KENTUCKY MIDDAY", days: "Senin - Minggu", close: "01:05 WIB", open: "01:20 WIB", closeTime: "01:05", openTime: "01:20", result: "", done: false, link: "https://www.kylottery.com/apps/", category: "usa" },
+            { id: 4, name: "FLORIDA MIDDAY", days: "Senin - Minggu", close: "01:20 WIB", open: "01:30 WIB", closeTime: "01:20", openTime: "01:30", result: "", done: false, link: "https://floridalottery.com/games/draw-games/pick-4", category: "usa" },
+            { id: 5, name: "HUAHIN 0100", days: "Senin - Minggu", close: "00:45 WIB", open: "01:00 WIB", closeTime: "00:45", openTime: "01:00", result: "", done: false, link: "https://huahinlottery.com/", category: "asia" },
+            { id: 6, name: "BANGKOK 0130", days: "Senin - Minggu", close: "01:15 WIB", open: "01:30 WIB", closeTime: "01:15", openTime: "01:30", result: "", done: false, link: "https://bangkokpoolstoday.com", category: "asia" },
+            { id: 7, name: "NEWYORK MIDDAY", days: "Senin - Minggu", close: "02:15 WIB", open: "02:25 WIB", closeTime: "02:15", openTime: "02:25", result: "", done: false, link: "https://nylottery.ny.gov", category: "usa" },
+            { id: 8, name: "CAROLINA DAY", days: "Senin - Minggu", close: "02:45 WIB", open: "03:00 WIB", closeTime: "02:45", openTime: "03:00", result: "", done: false, link: "https://nclottery.com/Pick4", category: "usa" },
+            { id: 9, name: "BRUNEI 02", days: "Senin - Minggu", close: "02:30 WIB", open: "02:45 WIB", closeTime: "02:30", openTime: "02:45", result: "", done: false, link: "https://bruneipools.com", category: "asia" },
+            { id: 10, name: "OREGON03", days: "Senin - Minggu", close: "03:50 WIB", open: "04:00 WIB", closeTime: "03:50", openTime: "04:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers", category: "usa" },
+            { id: 11, name: "OREGON06", days: "Senin - Minggu", close: "06:50 WIB", open: "07:00 WIB", closeTime: "06:50", openTime: "07:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers", category: "usa" },
+            { id: 12, name: "CALIFORNIA", days: "Senin - Minggu", close: "09:25 WIB", open: "09:30 WIB", closeTime: "09:25", openTime: "09:30", result: "", done: false, link: "https://www.calottery.com/play/draw-games/daily-4", category: "usa" },
+            { id: 13, name: "FLORIDA EVENING", days: "Senin - Minggu", close: "09:35 WIB", open: "09:45 WIB", closeTime: "09:35", openTime: "09:45", result: "", done: false, link: "https://floridalottery.com/games/draw-games/pick-4", category: "usa" },
+            { id: 14, name: "OREGON09", days: "Senin - Minggu", close: "09:50 WIB", open: "10:00 WIB", closeTime: "09:50", openTime: "10:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers", category: "usa" },
+            { id: 15, name: "BANGKOK 0930", days: "Senin - Minggu", close: "09:15 WIB", open: "09:30 WIB", closeTime: "09:15", openTime: "09:30", result: "", done: false, link: "https://bangkokpoolstoday.com", category: "asia" },
+            { id: 16, name: "NEW YORK EVENING", days: "Senin - Minggu", close: "10:25 WIB", open: "10:35 WIB", closeTime: "10:25", openTime: "10:35", result: "", done: false, link: "https://nylottery.ny.gov", category: "usa" },
+            { id: 17, name: "KENTUCKY EVENING", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://www.kylottery.com/apps/", category: "usa" },
+            { id: 18, name: "CAROLINA EVENING", days: "Senin - Minggu", close: "11:17 WIB", open: "11:22 WIB", closeTime: "11:17", openTime: "11:22", result: "", done: false, link: "https://nclottery.com/Pick4", category: "usa" },
+            { id: 19, name: "TOTO CAMBODIA LIVE", days: "Senin - Minggu", close: "10:45 WIB", open: "11:00 WIB", closeTime: "10:45", openTime: "11:00", result: "", done: false, link: "https://totocambodialive.com", category: "asia" },
+            { id: 20, name: "CHELSEA 11", days: "Senin - Minggu", close: "11:00 WIB", open: "11:15 WIB", closeTime: "11:00", openTime: "11:15", result: "", done: false, link: "https://chelseapools.co.uk", category: "chelsea" },
+            { id: 21, name: "OREGON12", days: "Senin - Minggu", close: "12:50 WIB", open: "13:00 WIB", closeTime: "12:50", openTime: "13:00", result: "", done: false, link: "https://www.oregonlottery.org/pick-4/winning-numbers", category: "usa" },
+            { id: 22, name: "POIPET12", days: "Senin - Minggu", close: "12:15 WIB", open: "12:30 WIB", closeTime: "12:15", openTime: "12:30", result: "", done: false, link: "https://poipetlottery.com", category: "asia" },
+            { id: 23, name: "BULLSEYE", days: "Senin - Minggu", close: "12:00 WIB", open: "12:15 WIB", closeTime: "12:00", openTime: "12:15", result: "", done: false, link: "https://mylotto.co.nz", category: "asia" },
+            { id: 24, name: "TOTOMACAU SIANG", days: "Senin - Minggu", close: "13:00 WIB", open: "13:15 WIB", closeTime: "13:00", openTime: "13:15", result: "", done: false, link: "https://poolstotomacao.com", category: "macau" },
+            { id: 25, name: "SYDNEY", days: "Senin - Minggu", close: "13:49 WIB", open: "14:05 WIB", closeTime: "13:49", openTime: "14:05", result: "", done: false, link: "https://sydneylottobaru.site", category: "asia" },
+            { id: 26, name: "BRUNEI14", days: "Senin - Minggu", close: "14:30 WIB", open: "14:45 WIB", closeTime: "14:30", openTime: "14:45", result: "", done: false, link: "https://bruneipools.com", category: "asia" },
+            { id: 27, name: "CHELSEA 15", days: "Senin - Minggu", close: "15:00 WIB", open: "15:15 WIB", closeTime: "15:00", openTime: "15:15", result: "", done: false, link: "https://chelseapools.co.uk", category: "chelsea" },
+            { id: 28, name: "TOTOMALI1530", days: "Senin - Minggu", close: "15:15 WIB", open: "15:30 WIB", closeTime: "15:15", openTime: "15:30", result: "", done: false, link: "https://totomali.com", category: "asia" },
+            { id: 29, name: "POIPET15", days: "Senin - Minggu", close: "15:15 WIB", open: "15:30 WIB", closeTime: "15:15", openTime: "15:30", result: "", done: false, link: "https://poipetlottery.com", category: "asia" },
+            { id: 30, name: "TOTOMACAU SORE", days: "Senin - Minggu", close: "16:00 WIB", open: "16:15 WIB", closeTime: "16:00", openTime: "16:15", result: "", done: false, link: "https://poolstotomacao.com", category: "macau" },
+            { id: 31, name: "HUAHIN 1630", days: "Senin - Minggu", close: "16:15 WIB", open: "16:30 WIB", closeTime: "16:15", openTime: "16:30", result: "", done: false, link: "https://huahinlottery.com", category: "asia" },
+            { id: 32, name: "KING KONG4D I", days: "Senin - Minggu", close: "17:00 WIB", open: "17:15 WIB", closeTime: "17:00", openTime: "17:15", result: "", done: false, link: "https://kingkongpools.com", category: "asia" },
+            { id: 33, name: "SINGAPORE", days: "SELASA & JUMAT LIBUR", close: "17:30 WIB", open: "17:45 WIB", closeTime: "17:30", openTime: "17:45", result: "", done: false, link: "https://www.singaporepools.com.sg/landing/en/Pages/index.html", category: "asia" },
+            { id: 34, name: "MAGNUM4D", days: "RABU, SABTU, & MINGGU", close: "18:10 WIB", open: "18:40 WIB", closeTime: "18:10", openTime: "18:40", result: "", done: false, link: "https://www.magnum4d.my/en/", category: "asia" },
+            { id: 35, name: "TOTOMACAU MALAM I", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://poolstotomacao.com", category: "macau" },
+            { id: 36, name: "CHELSEA 19", days: "Senin - Minggu", close: "19:00 WIB", open: "19:15 WIB", closeTime: "19:00", openTime: "19:15", result: "", done: false, link: "https://chelseapools.co.uk", category: "chelsea" },
+            { id: 37, name: "POIPET19", days: "Senin - Minggu", close: "19:30 WIB", open: "19:45 WIB", closeTime: "19:30", openTime: "19:45", result: "", done: false, link: "https://poipetlottery.com", category: "asia" },
+            { id: 38, name: "PCSO", days: "MINGGU LIBUR", close: "19:50 WIB", open: "20:10 WIB", closeTime: "19:50", openTime: "20:10", result: "", done: false, link: "https://www.pcso.gov.ph", category: "asia" },
+            { id: 39, name: "TOTOMALI2030", days: "Senin - Minggu", close: "20:15 WIB", open: "20:30 WIB", closeTime: "20:15", openTime: "20:30", result: "", done: false, link: "https://totomali.com", category: "asia" },
+            { id: 40, name: "HUAHIN2100", days: "Senin - Minggu", close: "20:30 WIB", open: "20:45 WIB", closeTime: "20:30", openTime: "20:45", result: "", done: false, link: "https://huahinlottery.com", category: "asia" },
+            { id: 41, name: "CHELSEA21", days: "Senin - Minggu", close: "21:00 WIB", open: "21:15 WIB", closeTime: "21:00", openTime: "21:15", result: "", done: false, link: "https://chelseapools.co.uk", category: "chelsea" },
+            { id: 42, name: "NEVADA", days: "Senin - Minggu", close: "21:15 WIB", open: "21:30 WIB", closeTime: "21:15", openTime: "21:30", result: "", done: false, link: "https://www.nevadalottery.us/", category: "usa" },
+            { id: 43, name: "BRUNEI21", days: "Senin - Minggu", close: "21:30 WIB", open: "21:45 WIB", closeTime: "21:30", openTime: "21:45", result: "", done: false, link: "https://bruneipools.com/", category: "asia" },
+            { id: 44, name: "TOTOMACAU MALAM-II", days: "Senin - Minggu", close: "22:00 WIB", open: "22:15 WIB", closeTime: "22:00", openTime: "22:15", result: "", done: false, link: "https://poolstotomacao.com", category: "macau" },
+            { id: 45, name: "POIPET22", days: "Senin - Minggu", close: "22:30 WIB", open: "22:45 WIB", closeTime: "22:30", openTime: "22:45", result: "", done: false, link: "https://poipetlottery.com", category: "asia" },
+            { id: 46, name: "HONGKONG", days: "Senin - Minggu", close: "22:59 WIB", open: "23:15 WIB", closeTime: "22:59", openTime: "23:15", result: "", done: false, link: "https://lottohongkong.fun", category: "asia" },
+            { id: 47, name: "TOTOMACAU MALAM-III", days: "Senin - Minggu", close: "23:00 WIB", open: "23:15 WIB", closeTime: "23:00", openTime: "23:15", result: "", done: false, link: "https://poolstotomacao.com", category: "macau" },
+            { id: 48, name: "TOTOMALI2330", days: "Senin - Minggu", close: "23:15 WIB", open: "23:30 WIB", closeTime: "23:15", openTime: "23:30", result: "", done: false, link: "https://totomali.com", category: "asia" },
+            { id: 49, name: "KING KONG4D II", days: "Senin - Minggu", close: "23:30 WIB", open: "23:45 WIB", closeTime: "23:30", openTime: "23:45", result: "", done: false, link: "https://kingkongpools.com", category: "asia" }
         ];
 
-        // List pools dengan 3 prize
+        // List pools dengan 3 prize (Chelsea sudah dimasukkan semua)
         const poolsWithThreePrizes = [
-            "HUAHIN0100",
+            "HUAHIN 0100",
             "BANGKOK 0130",
-            "BRUNEI02",
+            "BRUNEI 02",
             "BANGKOK 0930",
             "TOTO CAMBODIA LIVE",
-            "CHELSEA11",
+            "CHELSEA 11",
             "POIPET12",
             "SYDNEY",
             "BRUNEI14",
-            "CHELSEA15",
+            "CHELSEA 15",
             "TOTOMALI1530",
             "POIPET15",
-            "HUAHIN1630",
+            "HUAHIN 1630",
             "SINGAPORE",
             "MAGNUM4D",
-            "CHELSEA19",
+            "CHELSEA 19",
             "POIPET19",
             "TOTOMALI2030",
             "HUAHIN2100",
@@ -1540,6 +1895,10 @@
             "HONGKONG",
             "TOTOMALI2330"
         ];
+
+        // Filter state
+        let currentCategoryFilter = 'all';
+        let currentPoolFilter = '';
 
         // Default users (admin and regular users)
         let users = [
@@ -1676,6 +2035,43 @@
             );
         }
 
+        // ===================== DROPDOWN FUNCTIONS =====================
+        function toggleDropdown(id) {
+            const content = document.getElementById(id);
+            const header = content.previousElementSibling;
+            
+            content.classList.toggle('show');
+            header.classList.toggle('active');
+        }
+
+        function filterByCategory(category) {
+            currentCategoryFilter = category;
+            currentPoolFilter = '';
+            loadPools();
+            
+            // Close all dropdowns
+            document.querySelectorAll('.dropdown-content').forEach(content => {
+                content.classList.remove('show');
+            });
+            document.querySelectorAll('.dropdown-header').forEach(header => {
+                header.classList.remove('active');
+            });
+        }
+
+        function filterByPool(poolName) {
+            currentCategoryFilter = 'all';
+            currentPoolFilter = poolName;
+            loadPools();
+            
+            // Close all dropdowns
+            document.querySelectorAll('.dropdown-content').forEach(content => {
+                content.classList.remove('show');
+            });
+            document.querySelectorAll('.dropdown-header').forEach(header => {
+                header.classList.remove('active');
+            });
+        }
+
         // ===================== POOLS MANAGEMENT =====================
         function loadPools() {
             const container = document.getElementById('poolsContainer');
@@ -1684,8 +2080,20 @@
             const filter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
             const searchTerm = document.getElementById('searchPools').value.toLowerCase();
             
-            poolsData.forEach(pool => {
-                // Apply filters
+            let filteredPools = poolsData;
+            
+            // Apply category filter
+            if (currentCategoryFilter !== 'all') {
+                filteredPools = filteredPools.filter(pool => pool.category === currentCategoryFilter);
+            }
+            
+            // Apply specific pool filter
+            if (currentPoolFilter) {
+                filteredPools = filteredPools.filter(pool => pool.name === currentPoolFilter);
+            }
+            
+            filteredPools.forEach(pool => {
+                // Apply status filters
                 if (filter === 'done' && !pool.done) return;
                 if (filter === 'ongoing' && pool.done) return;
                 
@@ -1723,18 +2131,18 @@
                 </div>
                 
                 <div class="info">
-                    Hari: <span>${pool.days}</span>
+                    <span><i class="fas fa-calendar-alt"></i> Hari:</span> <span>${pool.days}</span>
                 </div>
                 <div class="info">
-                    Tutup: <span class="close">${pool.close}</span>
+                    <span><i class="fas fa-clock"></i> Tutup:</span> <span class="close">${pool.close}</span>
                 </div>
                 <div class="info">
-                    Buka: <span class="open">${pool.open}</span>
+                    <span><i class="fas fa-hourglass-start"></i> Buka:</span> <span class="open">${pool.open}</span>
                 </div>
                 
                 <div class="countdown-container">
                     <div class="countdown-title">
-                        <i class="fas fa-clock"></i> Countdown:
+                        <i class="fas fa-hourglass-half"></i> Countdown:
                     </div>
                     <div class="countdown-timer" id="countdown-${pool.id}">
                         ${countdown}
@@ -1750,7 +2158,7 @@
                         ${resultDetails}
                         <div class="action-buttons">
                             <button class="btn btn-copy" onclick="copyResult(${pool.id})">
-                                <i class="fas fa-copy"></i> Copy Result
+                                <i class="fas fa-copy"></i> Copy
                             </button>
                             <button class="btn btn-edit" onclick="editResult(${pool.id})">
                                 <i class="fas fa-edit"></i> Edit
@@ -1765,41 +2173,41 @@
                                 <div class="prize-input-group">
                                     <label>Prize 1:</label>
                                     <input type="text" class="prize-input" id="prize1-${pool.id}" 
-                                           placeholder="Input" maxlength="10" 
+                                           placeholder="4 digit" maxlength="4" 
                                            oninput="validateResultInput(this)">
                                 </div>
                                 <div class="prize-input-group">
                                     <label>Prize 2:</label>
                                     <input type="text" class="prize-input" id="prize2-${pool.id}" 
-                                           placeholder="Input" maxlength="10" 
+                                           placeholder="4 digit" maxlength="4" 
                                            oninput="validateResultInput(this)">
                                 </div>
                                 <div class="prize-input-group">
                                     <label>Prize 3:</label>
                                     <input type="text" class="prize-input" id="prize3-${pool.id}" 
-                                           placeholder="Input" maxlength="10" 
+                                           placeholder="4 digit" maxlength="4" 
                                            oninput="validateResultInput(this)">
                                 </div>
                                 <div class="prize-input-group">
-                                    <label>SHIO (Opsional):</label>
+                                    <label>SHIO:</label>
                                     <input type="text" class="prize-input" id="shio-${pool.id}" 
-                                           placeholder="Contoh: SHIO: BABI" maxlength="20">
+                                           placeholder="SHIO: BABI" maxlength="20">
                                 </div>
                             </div>
                             <div class="action-buttons">
                                 <button class="btn btn-submit" onclick="submitThreePrizeResult(${pool.id})">
-                                    <i class="fas fa-check"></i> Submit 3 Prize Result
+                                    <i class="fas fa-check"></i> Submit 3 Prize
                                 </button>
                             </div>
                         ` : `
                             <div class="result-input-container">
                                 <input type="text" class="result-input" id="result-${pool.id}" 
-                                       placeholder="Input" maxlength="10" 
+                                       placeholder="4 digit" maxlength="4" 
                                        oninput="validateResultInput(this)">
                             </div>
                             <div class="action-buttons">
                                 <button class="btn btn-submit" onclick="submitResult(${pool.id})">
-                                    <i class="fas fa-check"></i> Submit Result
+                                    <i class="fas fa-check"></i> Submit
                                 </button>
                             </div>
                         `}
@@ -1807,21 +2215,21 @@
                 </div>
                 
                 <a href="${pool.link}" target="_blank" rel="noopener" class="btn btn-visit">
-                    <i class="fas fa-external-link-alt"></i> Kunjungi Website
+                    <i class="fas fa-external-link-alt"></i> Kunjungi
                 </a>
             `;
             
             return card;
         }
 
-        // Validasi input result
+        // Validasi input result (hanya angka, max 4 digit)
         function validateResultInput(input) {
-            // Hanya allow angka dan spasi
-            input.value = input.value.replace(/[^0-9\s]/g, '');
+            // Hanya allow angka
+            input.value = input.value.replace(/[^0-9]/g, '');
             
-            // Limit max 10 karakter
-            if (input.value.length > 10) {
-                input.value = input.value.substring(0, 10);
+            // Limit max 4 karakter
+            if (input.value.length > 4) {
+                input.value = input.value.substring(0, 4);
             }
         }
 
@@ -1893,9 +2301,9 @@
                 return;
             }
             
-            // Validasi format result (maksimal 10 karakter)
-            if (result.length > 10) {
-                alert('Result maksimal 10 karakter!');
+            // Validasi format result (maksimal 4 digit)
+            if (result.length > 4) {
+                alert('Result maksimal 4 digit!');
                 if (input) input.focus();
                 return;
             }
@@ -1922,9 +2330,9 @@
                 return;
             }
             
-            // Validasi format result (maksimal 10 karakter per prize)
-            if (prize1.length > 10 || prize2.length > 10 || prize3.length > 10) {
-                alert('Masing-masing prize maksimal 10 karakter!');
+            // Validasi format result (maksimal 4 digit per prize)
+            if (prize1.length > 4 || prize2.length > 4 || prize3.length > 4) {
+                alert('Masing-masing prize maksimal 4 digit!');
                 return;
             }
             
@@ -1978,11 +2386,11 @@
                 document.getElementById('prizeModal').classList.add('active');
             } else {
                 // Simple edit for regular pools
-                const newResult = prompt('Edit hasil result (maks 10 karakter):', pool.result);
+                const newResult = prompt('Edit hasil result (maks 4 digit):', pool.result);
                 if (newResult !== null) {
                     const trimmedResult = newResult.trim();
-                    if (trimmedResult.length > 10) {
-                        alert('Result maksimal 10 karakter!');
+                    if (trimmedResult.length > 4) {
+                        alert('Result maksimal 4 digit!');
                         return;
                     }
                     pool.result = trimmedResult;
@@ -2007,9 +2415,9 @@
                 return;
             }
             
-            // Validasi format result (maksimal 10 karakter per prize)
-            if (prize1.length > 10 || prize2.length > 10 || prize3.length > 10) {
-                alert('Masing-masing prize maksimal 10 karakter!');
+            // Validasi format result (maksimal 4 digit per prize)
+            if (prize1.length > 4 || prize2.length > 4 || prize3.length > 4) {
+                alert('Masing-masing prize maksimal 4 digit!');
                 return;
             }
             
@@ -2532,16 +2940,24 @@
             // Sidebar menu
             document.querySelectorAll('.menu-item').forEach(item => {
                 item.addEventListener('click', function() {
-                    document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const section = this.dataset.section;
-                    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-                    document.getElementById(`${section}Section`).classList.add('active');
-                    
-                    // Close sidebar on mobile
-                    if (window.innerWidth <= 768) {
-                        document.getElementById('sidebar').classList.remove('active');
+                    if (this.dataset.section) {
+                        document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        const section = this.dataset.section;
+                        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                        document.getElementById(`${section}Section`).classList.add('active');
+                        
+                        // Reset filters when leaving dashboard
+                        if (section !== 'dashboard') {
+                            currentCategoryFilter = 'all';
+                            currentPoolFilter = '';
+                        }
+                        
+                        // Close sidebar on mobile
+                        if (window.innerWidth <= 768) {
+                            document.getElementById('sidebar').classList.remove('active');
+                        }
                     }
                 });
             });
@@ -2627,6 +3043,9 @@
         window.deleteUser = deleteUser;
         window.deleteIp = deleteIp;
         window.validateResultInput = validateResultInput;
+        window.toggleDropdown = toggleDropdown;
+        window.filterByCategory = filterByCategory;
+        window.filterByPool = filterByPool;
     </script>
 </body>
 </html>
